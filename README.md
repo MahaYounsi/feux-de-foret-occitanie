@@ -8,11 +8,15 @@ feux-de-foret-occitanie
 
 Occitanie
 
+## Commanditaire
+
+Direction du SDIS 31 (Haute-Garonne) : préparation de la saison feux 2027. Réponse attendue le 11 décembre 2026. Voir [docs/commande.md](docs/commande.md).
+
 ## Tableau des rôles
 
 | Membre             | Rôle                               |
 |--------------------|------------------------------------|
 | Maha Younsi        | Cheffe de projet                   |
 | Soukaina Goumih    | Responsable sources                |
-| Houcine Ait Yakoub | Responsable qualité                |
-| Sami Bouaouni      | Responsable pipeline et modèles    |
+| Hocine Ait Yakoub | Responsable qualité                |
+| Samy Bouaouni      | Responsable pipeline et modèles    |
