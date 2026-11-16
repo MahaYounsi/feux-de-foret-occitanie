@@ -17,7 +17,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF et Prométhée.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Soukaina Goumih, 2026-11-16
 
 ## Chef de centre
 
@@ -41,7 +41,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** proposé
 - **Origine de la définition :** INSEE, Code officiel géographique.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
 
 ## Danger élevé (Météo des forêts)
 
@@ -53,7 +53,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier (nombre exact de niveaux et libellés à confirmer)
 - **Origine de la définition :** documentation Météo-France / Météo des forêts.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** samy Bouaouni, 2026-11-16
 
 ## Départ de feu
 
@@ -65,7 +65,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** proposé
 - **Origine de la définition :** décision du groupe (à formaliser).
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
 
 ## Département
 
@@ -77,7 +77,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** 31 = Haute-Garonne.
 - **Statut :** proposé
 - **Origine de la définition :** INSEE, Code officiel géographique.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
 
 ## Dispositif renforcé
 
@@ -101,7 +101,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF / Géorisques.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Soukaina Goumih, 2026-11-16
 
 ## Guet
 
@@ -125,7 +125,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** documentation Météo-France.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Soukaina Goumih, 2026-11-16
 
 ## Intervention pour incendie
 
@@ -137,7 +137,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation du producteur.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Soukaina Goumih, 2026-11-16
 
 ## Patrouille
 
@@ -161,7 +161,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** saison 2026 (référence de la direction).
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction ; période de publication de la Météo des forêts à confirmer.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** samy Bouaouni, 2026-11-16
 
 ## SDIS (Service départemental d'incendie et de secours)
 
@@ -185,7 +185,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** samy Bouaouni, 2026-11-16
 
 ## Surface brûlée
 
@@ -197,7 +197,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Soukaina Goumih, 2026-11-16
 
 ## Territoire national
 
@@ -209,4 +209,4 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction ; couverture des sources à confirmer.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
