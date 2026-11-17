@@ -1,6 +1,6 @@
 # Glossaire — Occitanie
 
-Dernière mise à jour : 2026-11-16
+Dernière mise à jour : 2026-11-17
 
 > Version 0 (fin de S1). Commanditaire : Direction du SDIS 31 (Haute-Garonne), voir [commande.md](commande.md).
 > Les définitions marquées « à vérifier » doivent être confirmées par la documentation du producteur avant validation. Toute modification passe par un ticket et une pull request relue par la cheffe de projet. On ne supprime jamais un terme : on le marque « obsolète » avec la raison et la date.
@@ -91,6 +91,18 @@ Dernière mise à jour : 2026-11-16
 - **Origine de la définition :** commande de la direction.
 - **Ajouté par :** Maha Younsi, 2026-11-16
 
+## Fausse alerte
+
+- **Définition :** un jour où le dispositif renforcé aurait été déclenché (niveau de la Météo des forêts égal ou supérieur au seuil) sans qu'aucun départ de feu ne se produise dans le département.
+- **Sources et colonnes :** Météo des forêts (niveau du jour) croisée avec BDIFF (date et commune des feux).
+- **Divergences :** dans la commande, les chefs de centre en parlent d'après leur ressenti, sans comptage. Le résultat dépend de la définition retenue pour « départ de feu » et de l'emprise (département ou commune). Un feu absent de BDIFF fait apparaître à tort un jour de feu comme une fausse alerte.
+- **Règle retenue :** à décider : seuil testé, emprise et définition du départ de feu (lien vers le journal à ajouter).
+- **Unité ou granularité :** un jour ; un département.
+- **Exemple :** à compléter après croisement des sources.
+- **Statut :** proposé
+- **Origine de la définition :** décision du groupe, à partir de la commande.
+- **Ajouté par :** Hocine Ait Yakoub, 2026-11-17
+
 ## Feu de forêt
 
 - **Définition :** un incendie qui touche des forêts, landes, maquis ou garrigues. La définition couramment citée fixe un seuil d'au moins 1 hectare d'un seul tenant, avec une partie de la végétation arbustive ou arborée détruite.
@@ -102,6 +114,18 @@ Dernière mise à jour : 2026-11-16
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF / Géorisques.
 - **Ajouté par :** Soukaina Goumih, 2026-11-16
+
+## Feu manqué
+
+- **Définition :** un départ de feu survenu un jour où le niveau de la Météo des forêts était en dessous du seuil de déclenchement, donc sans dispositif renforcé en place.
+- **Sources et colonnes :** BDIFF (date et commune des feux) croisée avec la Météo des forêts (niveau du jour).
+- **Divergences :** dans la commande, des chefs de centre disent avoir combattu des feux les jours où l'indice était au plus bas. Les feux hors saison (printemps, hiver) n'ont pas de niveau publié : ils ne peuvent être classés ni manqués ni détectés.
+- **Règle retenue :** à décider : traitement des feux survenus hors période de publication de l'indice (lien vers le journal à ajouter).
+- **Unité ou granularité :** un départ de feu ; un jour.
+- **Exemple :** à compléter après croisement des sources.
+- **Statut :** proposé
+- **Origine de la définition :** décision du groupe, à partir de la commande.
+- **Ajouté par :** Hocine Ait Yakoub, 2026-11-17
 
 ## Guet
 
@@ -138,6 +162,30 @@ Dernière mise à jour : 2026-11-16
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation du producteur.
 - **Ajouté par :** Soukaina Goumih, 2026-11-16
+
+## Météo des forêts
+
+- **Définition :** la carte publiée chaque jour par Météo-France, avec l'Office national des forêts, qui annonce pour chaque département le niveau de danger de feu du lendemain et du surlendemain, sur quatre niveaux : faible (vert), modéré (jaune), élevé (orange), très élevé (rouge). Elle annonce un danger, pas des feux.
+- **Sources et colonnes :** Météo-France ; colonnes à identifier dans la fiche d'identité de la source.
+- **Divergences :** publiée seulement depuis juin 2023 et seulement en saison (juin à septembre) : environ quatre saisons d'historique, et aucun niveau pour les feux de printemps ou d'hiver. Deux prévisions existent pour un même jour (publiées la veille et l'avant-veille). Elle couvre l'Hexagone et la Corse. Elle s'appuie sur l'IFM mais ne se confond pas avec lui. L'« indice au plus bas » de la commande correspond au niveau faible (vert). L'entrée « Danger élevé » parle de zone de prévision alors que la carte est publiée par département : à harmoniser.
+- **Règle retenue :** à décider : prévision de la veille ou de l'avant-veille (lien vers le journal à ajouter).
+- **Unité ou granularité :** un département ; un jour.
+- **Exemple :** Haute-Garonne, vendredi 10 juillet 2026 : danger très élevé (rouge), seul département de France à ce niveau ce jour-là (relevé dans la presse, à confirmer dans les données Météo-France).
+- **Statut :** à vérifier
+- **Origine de la définition :** Météo-France et Service-Public.fr ; à confirmer dans la documentation Météo-France.
+- **Ajouté par :** Hocine Ait Yakoub, 2026-11-17
+
+## Moyens humains et financiers
+
+- **Définition :** les personnels (sapeurs-pompiers professionnels et volontaires), les véhicules et le matériel, ainsi que le budget, que le SDIS peut affecter à la prévention et à la lutte contre les feux.
+- **Sources et colonnes :** commande de la direction ; aucune source de données identifiée à ce stade.
+- **Divergences :** la commande ne précise ni le budget disponible, ni l'unité de répartition des moyens (centre de secours, commune, massif). Sans cette information, on peut montrer où se produisent les feux, mais pas combien de moyens y affecter.
+- **Règle retenue :** à demander à la direction (lien vers le journal à ajouter).
+- **Unité ou granularité :** centre d'incendie et de secours (à confirmer) ; euros ; jour.
+- **Exemple :** sans objet.
+- **Statut :** à vérifier
+- **Origine de la définition :** commande de la direction.
+- **Ajouté par :** Hocine Ait Yakoub, 2026-11-17
 
 ## Patrouille
 
