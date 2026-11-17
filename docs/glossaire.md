@@ -1,6 +1,6 @@
 # Glossaire — Occitanie
 
-Dernière mise à jour : 2026-11-16
+Dernière mise à jour : 2026-11-17
 
 > Version 0 (fin de S1). Commanditaire : Direction du SDIS 31 (Haute-Garonne), voir [commande.md](commande.md).
 > Les définitions marquées « à vérifier » doivent être confirmées par la documentation du producteur avant validation. Toute modification passe par un ticket et une pull request relue par la cheffe de projet. On ne supprime jamais un terme : on le marque « obsolète » avec la raison et la date.
@@ -17,7 +17,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF et Prométhée.
-- **Ajouté par :** Soukaina Goumih, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
 
 ## Chef de centre
 
@@ -29,7 +29,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** proposé
 - **Origine de la définition :** commande de la direction ; organisation des SDIS à confirmer.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
 
 ## Commune
 
@@ -41,7 +41,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** proposé
 - **Origine de la définition :** INSEE, Code officiel géographique.
-- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
 
 ## Danger élevé (Météo des forêts)
 
@@ -53,7 +53,19 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier (nombre exact de niveaux et libellés à confirmer)
 - **Origine de la définition :** documentation Météo-France / Météo des forêts.
-- **Ajouté par :** samy Bouaouni, 2026-11-16
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni (analyses individuelles), 2026-11-16
+
+## Date de première alerte
+
+- **Définition :** le jour et l'heure où les secours ont été prévenus d'un feu. C'est la meilleure approximation disponible du moment où le feu a démarré, mais ce n'est pas l'heure exacte du départ.
+- **Sources et colonnes :** BDIFF (date et heure de première alerte, voir la [fiche BDIFF](sources/fiche-bdiff.md)).
+- **Divergences :** l'horodatage est fourni en heure UTC dans la diffusion explorée ; il faut le convertir en heure locale avant d'en extraire le jour. La Météo des forêts annonce un niveau pour le lendemain (J+1) : il faut croiser le feu avec le niveau prévu pour son jour, et non avec le jour de publication.
+- **Règle retenue :** à décider : conversion en heure locale, puis croisement avec le niveau prévu pour ce jour (lien vers le journal à ajouter).
+- **Unité ou granularité :** date et heure ; un feu.
+- **Exemple :** à compléter avec une valeur tirée de la BDIFF.
+- **Statut :** à vérifier
+- **Origine de la définition :** documentation BDIFF ; constat de la fiche source.
+- **Ajouté par :** Soukaina Goumih (fiche BDIFF), 2026-11-17
 
 ## Départ de feu
 
@@ -65,7 +77,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** proposé
 - **Origine de la définition :** décision du groupe (à formaliser).
-- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-16
 
 ## Département
 
@@ -77,7 +89,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** 31 = Haute-Garonne.
 - **Statut :** proposé
 - **Origine de la définition :** INSEE, Code officiel géographique.
-- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub (analyses individuelles), 2026-11-16
 
 ## Dispositif renforcé
 
@@ -89,7 +101,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-16
 
 ## Feu de forêt
 
@@ -101,7 +113,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF / Géorisques.
-- **Ajouté par :** Soukaina Goumih, 2026-11-16
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub (analyses individuelles), 2026-11-16
 
 ## Guet
 
@@ -113,7 +125,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer (doctrine de défense des forêts contre l'incendie).
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Maha Younsi, Soukaina Goumih (analyses individuelles), 2026-11-16
 
 ## Indice Forêt Météo (IFM)
 
@@ -125,7 +137,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** documentation Météo-France.
-- **Ajouté par :** Soukaina Goumih, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
 
 ## Intervention pour incendie
 
@@ -137,7 +149,31 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation du producteur.
-- **Ajouté par :** Soukaina Goumih, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+
+## Météo des forêts
+
+- **Définition :** le service de Météo-France qui annonce chaque jour un niveau de danger de feu de forêt pour chaque département. C'est « l'indice » dont parle la direction dans la commande.
+- **Sources et colonnes :** archives de la Météo des forêts (Météo-France), à l'échelle départementale.
+- **Divergences :** la direction dit « l'indice » ; Météo-France publie un niveau (une classe) et non une valeur numérique, à ne pas confondre avec l'IFM. Les noms et le nombre de niveaux, le niveau le plus bas (« indice au plus bas »), la date de création du service et la profondeur de l'historique restent à vérifier. Le niveau est une prévision pour le lendemain (J+1).
+- **Règle retenue :** à décider (lien vers le journal à ajouter).
+- **Unité ou granularité :** niveau de danger ; jour ; département.
+- **Exemple :** à compléter avec une valeur tirée des archives.
+- **Statut :** à vérifier
+- **Origine de la définition :** documentation Météo-France, à confirmer.
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-17
+
+## Moyens humains et financiers
+
+- **Définition :** les personnels, véhicules, matériels et le budget que le SDIS peut consacrer à la lutte contre les feux de forêt, et qu'il cherche à répartir au mieux.
+- **Sources et colonnes :** commande de la direction ; données internes du SDIS 31 (à demander).
+- **Divergences :** la commande ne dit pas quels moyens sont déplaçables, ni à quelle unité ils sont répartis (centre de secours, commune, secteur, massif). Le budget disponible et le coût d'une journée de renfort ne sont pas donnés.
+- **Règle retenue :** à demander à la direction : unité de répartition, budget et coût journalier (lien vers le journal à ajouter).
+- **Unité ou granularité :** centre de secours, secteur ou commune ; saison.
+- **Exemple :** sans objet.
+- **Statut :** à vérifier
+- **Origine de la définition :** commande de la direction.
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub (analyses individuelles), 2026-11-17
 
 ## Patrouille
 
@@ -149,7 +185,19 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer (doctrine de défense des forêts contre l'incendie).
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+
+## Région
+
+- **Définition :** la région administrative Occitanie, qui regroupe 13 départements : Ariège (09), Aude (11), Aveyron (12), Gard (30), Haute-Garonne (31), Gers (32), Hérault (34), Lot (46), Lozère (48), Hautes-Pyrénées (65), Pyrénées-Orientales (66), Tarn (81), Tarn-et-Garonne (82).
+- **Sources et colonnes :** toutes les sources (code région ou déduit du code département).
+- **Divergences :** l'Occitanie existe depuis 2016 (fusion de Languedoc-Roussillon et Midi-Pyrénées) ; des données anciennes peuvent être rangées sous les anciennes régions. Seuls les départements méditerranéens seraient suivis par Prométhée (liste à vérifier).
+- **Règle retenue :** à décider. Piste : définir la région par la liste des 13 codes département, quelle que soit l'année (lien vers le journal à ajouter).
+- **Unité ou granularité :** région ; agrégée par département.
+- **Exemple :** 31 = Haute-Garonne, département du commanditaire.
+- **Statut :** proposé
+- **Origine de la définition :** INSEE, Code officiel géographique.
+- **Ajouté par :** Samy Bouaouni (analyse individuelle), 2026-11-17
 
 ## Saison feux
 
@@ -161,7 +209,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** saison 2026 (référence de la direction).
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction ; période de publication de la Météo des forêts à confirmer.
-- **Ajouté par :** samy Bouaouni, 2026-11-16
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub (analyses individuelles), 2026-11-16
 
 ## SDIS (Service départemental d'incendie et de secours)
 
@@ -173,7 +221,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** SDIS 31 (Haute-Garonne).
 - **Statut :** proposé
 - **Origine de la définition :** Code général des collectivités territoriales.
-- **Ajouté par :** Maha Younsi, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
 
 ## Seuil de déclenchement
 
@@ -185,7 +233,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction.
-- **Ajouté par :** samy Bouaouni, 2026-11-16
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-16
 
 ## Surface brûlée
 
@@ -197,7 +245,7 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF.
-- **Ajouté par :** Soukaina Goumih, 2026-11-16
+- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
 
 ## Territoire national
 
@@ -209,4 +257,4 @@ Dernière mise à jour : 2026-11-16
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction ; couverture des sources à confirmer.
-- **Ajouté par :** hocine Ait Yakoub, 2026-11-16
+- **Ajouté par :** Maha Younsi, Soukaina Goumih (analyses individuelles), 2026-11-16

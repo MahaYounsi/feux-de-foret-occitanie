@@ -14,5 +14,5 @@ Occitanie
 |--------------------|------------------------------------|
 | Maha Younsi        | Cheffe de projet                   |
 | Soukaina Goumih    | Responsable sources                |
-| Houcine Ait Yakoub | Responsable qualité                |
-| Sami Bouaouni      | Responsable pipeline et modèles    |
+| Hocine Ait Yakoub | Responsable qualité                |
+| Samy Bouaouni      | Responsable pipeline et modèles    |
