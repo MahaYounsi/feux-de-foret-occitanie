@@ -2,7 +2,7 @@
 
 Dernière mise à jour : 2026-11-17
 
-> Version 0 (fin de S1). Commanditaire : Direction du SDIS 31 (Haute-Garonne), voir [commande.md](commande.md).
+> Version 0.1 : version 0 complétée avec les fiches sources (BDIFF, Météo des forêts, EFFIS, IFM Copernicus). Commanditaire : Direction du SDIS 31 (Haute-Garonne), voir [commande.md](commande.md).
 > Les définitions marquées « à vérifier » doivent être confirmées par la documentation du producteur avant validation. Toute modification passe par un ticket et une pull request relue par la cheffe de projet. On ne supprime jamais un terme : on le marque « obsolète » avec la raison et la date.
 
 ---
@@ -10,14 +10,14 @@ Dernière mise à jour : 2026-11-17
 ## Cause d'un feu
 
 - **Définition :** l'origine présumée d'un incendie, regroupée en grandes familles (par exemple : naturelle, accidentelle, involontaire liée à une activité humaine, malveillance, inconnue).
-- **Sources et colonnes :** BDIFF (colonne de nature ou de cause), Prométhée pour les départements méditerranéens.
+- **Sources et colonnes :** BDIFF (colonne de nature ou de cause), Prométhée pour les départements méditerranéens. EFFIS ne donne pas de cause.
 - **Divergences :** les familles de causes et leur niveau de détail peuvent différer entre BDIFF et Prométhée. Une part importante des feux a une cause « inconnue ». La cause est souvent présumée, rarement établie.
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
 - **Unité ou granularité :** un feu.
-- **Exemple :** à compléter avec une valeur tirée d'une source.
+- **Exemple :** à compléter avec une valeur tirée de la BDIFF.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF et Prométhée.
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Ajouté par :** Maha Younsi (à partir de la consigne et des sources), 2026-11-16
 
 ## Chef de centre
 
@@ -29,37 +29,37 @@ Dernière mise à jour : 2026-11-17
 - **Exemple :** sans objet.
 - **Statut :** proposé
 - **Origine de la définition :** commande de la direction ; organisation des SDIS à confirmer.
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Ajouté par :** Maha Younsi (analyse individuelle), 2026-11-16
 
 ## Commune
 
 - **Définition :** la plus petite unité administrative française. Elle sert à localiser l'endroit où un feu a démarré.
-- **Sources et colonnes :** BDIFF (code INSEE de la commune), référentiels géographiques INSEE / IGN.
-- **Divergences :** le code INSEE (identifiant officiel) ne correspond pas au code postal. Avec les fusions de communes, un même code peut changer au fil des années, donc un feu ancien peut porter le code d'une commune qui n'existe plus.
-- **Règle retenue :** à décider. Piste : utiliser le code INSEE et un millésime unique du code officiel géographique (lien vers le journal à ajouter).
+- **Sources et colonnes :** BDIFF (code INSEE de la commune, voir la [fiche BDIFF](sources/fiche-bdiff.md)) ; EFFIS (nom de la commune en texte, sans code INSEE) ; référentiels géographiques INSEE / IGN.
+- **Divergences :** le code INSEE (identifiant officiel) ne correspond pas au code postal. Avec les fusions de communes, un même code peut changer au fil des années, donc un feu ancien peut porter le code d'une commune qui n'existe plus. EFFIS ne donne que le nom : une jointure par le nom est fragile (homonymes, accents), il faut passer par les coordonnées.
+- **Règle retenue :** à décider. Piste : utiliser le code INSEE et un millésime unique du code officiel géographique ; pour EFFIS, rattacher chaque surface à une commune par sa position (lien vers le journal à ajouter).
 - **Unité ou granularité :** commune (code INSEE à 5 caractères).
-- **Exemple :** à compléter avec une valeur tirée d'une source.
+- **Exemple :** « Fauga », commune de Haute-Garonne, telle qu'elle apparaît dans EFFIS pour un feu du 24 juin 2026 (sans code INSEE).
 - **Statut :** proposé
 - **Origine de la définition :** INSEE, Code officiel géographique.
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Ajouté par :** Maha Younsi (à partir de la consigne et des sources), 2026-11-16
 
 ## Danger élevé (Météo des forêts)
 
-- **Définition :** un des niveaux de l'échelle de danger de feu publiée chaque jour par la Météo des forêts. Il indique la probabilité qu'un feu démarre et se propage, selon la météo et l'état de la végétation.
-- **Sources et colonnes :** Météo des forêts (Météo-France), carte de danger par zone et par jour.
-- **Divergences :** l'échelle a plusieurs niveaux, et « danger élevé » est parfois utilisé à l'oral pour dire « élevé ou plus ». Dans la commande, les chefs de centre disent que l'indice « annonce souvent un danger élevé » sans feu : il faut savoir de quel niveau exact ils parlent. Le danger publié est une prévision par zone, pas une mesure à la commune. Il ne faut pas le confondre avec l'IFM (valeur numérique) ni avec les arrêtés préfectoraux d'accès aux massifs.
-- **Règle retenue :** à décider : retenir le niveau « élevé » seul, ou « élevé et au-dessus » (lien vers le journal à ajouter).
-- **Unité ou granularité :** zone de prévision ; jour.
-- **Exemple :** à compléter avec une valeur tirée d'une source.
-- **Statut :** à vérifier (nombre exact de niveaux et libellés à confirmer)
-- **Origine de la définition :** documentation Météo-France / Météo des forêts.
+- **Définition :** le niveau 3 sur 4 de l'échelle de la Météo des forêts (couleur orange), entre « modéré » et « très élevé ». Il signifie que les conditions météorologiques et l'état de la végétation sont favorables au départ et à la propagation des feux.
+- **Sources et colonnes :** archives de la Météo des forêts (Météo-France) : niveau prévu pour le lendemain et le surlendemain, valeur 3.
+- **Divergences :** à l'oral, « danger élevé » est parfois utilisé pour dire « élevé ou plus », c'est-à-dire niveaux 3 et 4. Dans la commande, les chefs de centre disent que l'indice « annonce souvent un danger élevé » sans feu : il faut savoir s'ils parlent du niveau 3 seul. Le niveau est donné pour un département entier, pas pour une commune ou un massif. Il ne faut pas le confondre avec l'IFM (valeur numérique) ni avec les arrêtés préfectoraux d'accès aux massifs.
+- **Règle retenue :** à décider : retenir le niveau 3 seul, ou « 3 et au-dessus » (lien vers le journal à ajouter).
+- **Unité ou granularité :** département ; jour.
+- **Exemple :** en 2026, la Haute-Garonne a eu 31 jours prévus au niveau élevé (3) et 4 jours au niveau très élevé (4), contre 1 seul jour au niveau 3 en 2024.
+- **Statut :** validé (échelle confirmée par Météo-France) ; règle de regroupement à décider.
+- **Origine de la définition :** documentation Météo-France (PDF de présentation et documentation des données expertisées) ; fiche Météo des forêts.
 - **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni (analyses individuelles), 2026-11-16
 
 ## Date de première alerte
 
 - **Définition :** le jour et l'heure où les secours ont été prévenus d'un feu. C'est la meilleure approximation disponible du moment où le feu a démarré, mais ce n'est pas l'heure exacte du départ.
-- **Sources et colonnes :** BDIFF (date et heure de première alerte, voir la [fiche BDIFF](sources/fiche-bdiff.md)).
-- **Divergences :** l'horodatage est fourni en heure UTC dans la diffusion explorée ; il faut le convertir en heure locale avant d'en extraire le jour. La Météo des forêts annonce un niveau pour le lendemain (J+1) : il faut croiser le feu avec le niveau prévu pour son jour, et non avec le jour de publication.
+- **Sources et colonnes :** BDIFF (date et heure de première alerte, voir la [fiche BDIFF](sources/fiche-bdiff.md)). EFFIS donne une « date du feu » estimée par satellite, qui n'est pas une date d'alerte.
+- **Divergences :** l'horodatage est fourni en heure UTC dans la diffusion explorée ; il faut le convertir en heure locale avant d'en extraire le jour. Pour le croiser avec la Météo des forêts, il faut retrouver le niveau prévu pour ce jour-là, et non le niveau publié ce jour-là (voir « Prévision J+1 / J+2 »).
 - **Règle retenue :** à décider : conversion en heure locale, puis croisement avec le niveau prévu pour ce jour (lien vers le journal à ajouter).
 - **Unité ou granularité :** date et heure ; un feu.
 - **Exemple :** à compléter avec une valeur tirée de la BDIFF.
@@ -71,10 +71,10 @@ Dernière mise à jour : 2026-11-17
 
 - **Définition :** le début d'un incendie, c'est-à-dire le lieu et le moment où il démarre, quelle que soit la surface brûlée ensuite.
 - **Sources et colonnes :** terme employé par la direction dans la commande ; BDIFF (date et commune d'alerte), données d'intervention des SDIS.
-- **Divergences :** la direction parle de « départs de feu » et de « feux de forêt » dans le même courrier. BDIFF recense des feux de forêt, avec parfois un seuil de surface. Les SDIS comptent des interventions. Un départ de feu éteint très vite peut ne pas apparaître dans BDIFF.
+- **Divergences :** la direction parle de « départs de feu » et de « feux de forêt » dans le même courrier. BDIFF recense des feux de forêt, avec parfois un seuil de surface. Les SDIS comptent des interventions. EFFIS ne recense pas des départs mais des surfaces brûlées vues par satellite, sans les petits feux. Un départ de feu éteint très vite peut n'apparaître dans aucune de ces sources.
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
 - **Unité ou granularité :** un événement ; date (et heure si disponible) ; commune.
-- **Exemple :** à compléter avec une valeur tirée d'une source.
+- **Exemple :** à compléter avec une valeur tirée de la BDIFF.
 - **Statut :** proposé
 - **Origine de la définition :** décision du groupe (à formaliser).
 - **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-16
@@ -82,9 +82,9 @@ Dernière mise à jour : 2026-11-17
 ## Département
 
 - **Définition :** une division administrative identifiée par un code INSEE. L'Occitanie en compte 13 : 09, 11, 12, 30, 31, 32, 34, 46, 48, 65, 66, 81, 82. Le département du commanditaire est la Haute-Garonne (31).
-- **Sources et colonnes :** toutes les sources (code département, ou déduit du code commune).
-- **Divergences :** le code INSEE du département ne correspond pas toujours au territoire couvert par un service d'incendie (SDIS). Certaines interventions sont faites en renfort hors du département. La Météo des forêts découpe le territoire en zones qui ne suivent pas forcément les limites départementales.
-- **Règle retenue :** à décider. Piste : rattacher chaque feu au département de sa commune de départ (lien vers le journal à ajouter).
+- **Sources et colonnes :** toutes les sources : code département dans la Météo des forêts, déduit du code commune dans la BDIFF, nom en texte dans EFFIS.
+- **Divergences :** le code INSEE du département ne correspond pas toujours au territoire couvert par un service d'incendie (SDIS). Certaines interventions sont faites en renfort hors du département. Le format du code change selon la source et l'année : dans la Météo des forêts, « 9 » pour l'Ariège en 2024 et 2025, mais « 09 » en 2026 ; la Corse est codée « 2A » et « 2B ». EFFIS ne donne que le nom du département.
+- **Règle retenue :** à décider. Piste : rattacher chaque feu au département de sa commune de départ, avec un code toujours sur deux caractères (lien vers le journal à ajouter).
 - **Unité ou granularité :** département (code INSEE).
 - **Exemple :** 31 = Haute-Garonne.
 - **Statut :** proposé
@@ -106,11 +106,11 @@ Dernière mise à jour : 2026-11-17
 ## Feu de forêt
 
 - **Définition :** un incendie qui touche des forêts, landes, maquis ou garrigues. La définition couramment citée fixe un seuil d'au moins 1 hectare d'un seul tenant, avec une partie de la végétation arbustive ou arborée détruite.
-- **Sources et colonnes :** BDIFF, Prométhée, données d'intervention des SDIS.
-- **Divergences :** BDIFF et Prométhée recensent des feux de forêt, avec des règles de saisie propres. Les SDIS comptent des interventions pour feux de végétation, qui incluent aussi les feux agricoles ou de broussailles. Le seuil de 1 ha n'est pas appliqué partout de la même façon.
+- **Sources et colonnes :** BDIFF, Prométhée, EFFIS (part de chaque type de végétation brûlée), données d'intervention des SDIS.
+- **Divergences :** BDIFF et Prométhée recensent des feux de forêt, avec des règles de saisie propres. Les SDIS comptent des interventions pour feux de végétation, qui incluent aussi les feux agricoles ou de broussailles. EFFIS cartographie toute surface brûlée vue par satellite : une surface peut être à 100 % en végétation naturelle autre que la forêt (landes, prairies), et les petits feux sont absents (seuil d'environ 30 ha avant 2018 d'après la documentation EFFIS). Le seuil de 1 ha n'est pas appliqué partout de la même façon.
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
 - **Unité ou granularité :** un feu ; surface en hectares.
-- **Exemple :** à compléter avec une valeur tirée d'une source.
+- **Exemple :** à compléter avec une valeur tirée de la BDIFF.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF / Géorisques.
 - **Ajouté par :** Maha Younsi, Hocine Ait Yakoub (analyses individuelles), 2026-11-16
@@ -127,17 +127,29 @@ Dernière mise à jour : 2026-11-17
 - **Origine de la définition :** à confirmer (doctrine de défense des forêts contre l'incendie).
 - **Ajouté par :** Maha Younsi, Soukaina Goumih (analyses individuelles), 2026-11-16
 
+## Indice de danger intégré
+
+- **Définition :** l'indice calculé chaque jour par Météo-France pour estimer le danger de feu dans chaque département. Il part de l'IFM et y ajoute l'état de sécheresse de la végétation. C'est sur cette base que les prévisionnistes fixent le niveau de la Météo des forêts.
+- **Sources et colonnes :** documentation de la Météo des forêts (PDF de présentation). L'indice lui-même n'est pas diffusé dans les archives : seul le niveau final (1 à 4) l'est.
+- **Divergences :** le niveau publié ne dépend pas que de la météo : il tient compte aussi de la surface forestière, des interfaces forêt-habitat et des zones où des feux sont observés tous les ans. Deux départements avec la même météo peuvent donc avoir des niveaux différents.
+- **Règle retenue :** sans objet (terme de contexte, utile pour expliquer l'indice à la direction).
+- **Unité ou granularité :** département ; jour.
+- **Exemple :** sans objet (valeur non diffusée).
+- **Statut :** validé
+- **Origine de la définition :** documentation Météo-France (PDF de présentation de la Météo des forêts).
+- **Ajouté par :** Hocine Ait Yakoub (fiche Météo des forêts), 2026-11-17
+
 ## Indice Forêt Météo (IFM)
 
-- **Définition :** une note calculée chaque jour à partir de la météo (température, humidité, vent, pluie) qui estime le risque qu'un feu démarre et se propage. Plus la valeur est haute, plus le danger est grand.
-- **Sources et colonnes :** Météo-France (IFM), sert de base à la Météo des forêts.
-- **Divergences :** l'IFM est une valeur numérique continue, alors que la Météo des forêts publie des niveaux. Les seuils de passage d'un niveau à l'autre peuvent dépendre de la zone. Dans la commande, la direction dit « l'indice » pour parler du niveau de la Météo des forêts.
+- **Définition :** une note calculée chaque jour à partir de la météo (température, humidité, vent, pluie) qui estime le danger qu'un feu démarre, se propage et soit intense. Plus la valeur est haute, plus le danger est grand.
+- **Sources et colonnes :** Météo-France l'utilise pour calculer l'Indice de danger intégré (non diffusé dans les archives explorées). Copernicus diffuse un indice équivalent, `fire_weather_index`, calculé sur une grille mondiale depuis 1940 (voir la [fiche IFM Copernicus](sources/fiche-ifm-copernicus.md)).
+- **Divergences :** l'IFM est une valeur numérique continue, alors que la Météo des forêts publie des niveaux de 1 à 4. Dans la commande, la direction dit « l'indice » pour parler du niveau de la Météo des forêts, pas de l'IFM. L'indice de Copernicus est calculé avec d'autres données météorologiques (réanalyse ERA5) que celui de Météo-France : la correspondance entre les deux reste à vérifier.
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
-- **Unité ou granularité :** sans unité ; jour ; point de grille ou zone.
-- **Exemple :** à compléter avec une valeur tirée d'une source.
+- **Unité ou granularité :** sans unité ; jour ; maille de grille.
+- **Exemple :** à compléter une fois un fichier Copernicus téléchargé.
 - **Statut :** à vérifier
-- **Origine de la définition :** documentation Météo-France.
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Origine de la définition :** documentation Météo-France (PDF de présentation) ; catalogue Copernicus.
+- **Ajouté par :** Maha Younsi (analyse individuelle), 2026-11-16
 
 ## Intervention pour incendie
 
@@ -149,19 +161,19 @@ Dernière mise à jour : 2026-11-17
 - **Exemple :** à compléter avec une valeur tirée d'une source.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation du producteur.
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Ajouté par :** Maha Younsi (à partir de la consigne et des sources), 2026-11-16
 
 ## Météo des forêts
 
-- **Définition :** le service de Météo-France qui annonce chaque jour un niveau de danger de feu de forêt pour chaque département. C'est « l'indice » dont parle la direction dans la commande.
-- **Sources et colonnes :** archives de la Météo des forêts (Météo-France), à l'échelle départementale.
-- **Divergences :** la direction dit « l'indice » ; Météo-France publie un niveau (une classe) et non une valeur numérique, à ne pas confondre avec l'IFM. Les noms et le nombre de niveaux, le niveau le plus bas (« indice au plus bas »), la date de création du service et la profondeur de l'historique restent à vérifier. Le niveau est une prévision pour le lendemain (J+1).
+- **Définition :** le service de Météo-France qui annonce chaque jour, pour chaque département, le niveau de danger de feu prévu pour le lendemain et le surlendemain, sur une échelle à 4 niveaux : faible (1, vert), modéré (2, jaune), élevé (3, orange), très élevé (4, rouge). C'est « l'indice » dont parle la direction dans la commande.
+- **Sources et colonnes :** archives de la Météo des forêts (Météo-France, data.gouv.fr) : date de publication, code département, niveau prévu pour le lendemain, niveau prévu pour le surlendemain.
+- **Divergences :** la direction dit « l'indice » ; Météo-France publie un niveau (une classe) et non une valeur numérique, à ne pas confondre avec l'IFM. « L'indice au plus bas » dont parle la commande correspond au niveau 1 (faible). Le service existe depuis 2023, mais les archives ne commencent qu'en 2024. Il n'est publié qu'en saison : du 3 juin au 30 septembre en 2024 et 2025, du 28 mai au 5 octobre en 2026. Un feu survenu hors de ces périodes n'a pas de niveau associé. La date d'une ligne est la date de publication, pas le jour concerné (voir « Prévision J+1 / J+2 »).
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
-- **Unité ou granularité :** niveau de danger ; jour ; département.
-- **Exemple :** à compléter avec une valeur tirée des archives.
-- **Statut :** à vérifier
-- **Origine de la définition :** documentation Météo-France, à confirmer.
-- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-17
+- **Unité ou granularité :** niveau de danger ; jour ; département (96 départements : Hexagone et Corse).
+- **Exemple :** bulletin publié le 9 juillet 2026 : niveau 4 (très élevé) prévu pour la Haute-Garonne le 10 juillet.
+- **Statut :** validé
+- **Origine de la définition :** documentation Météo-France (PDF de présentation et documentation des données expertisées) ; fiche Météo des forêts.
+- **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-17 ; complété par Hocine Ait Yakoub (fiche Météo des forêts), 2026-11-17
 
 ## Moyens humains et financiers
 
@@ -185,13 +197,25 @@ Dernière mise à jour : 2026-11-17
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer (doctrine de défense des forêts contre l'incendie).
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Ajouté par :** Maha Younsi (analyse individuelle), 2026-11-16
+
+## Prévision J+1 / J+2
+
+- **Définition :** chaque bulletin de la Météo des forêts donne deux prévisions : le niveau prévu pour le lendemain (J+1) et celui prévu pour le surlendemain (J+2). Un même jour reçoit donc deux prévisions, publiées à un jour d'écart.
+- **Sources et colonnes :** archives de la Météo des forêts (niveau prévu pour le lendemain, niveau prévu pour le surlendemain).
+- **Divergences :** les deux prévisions pour un même jour peuvent différer. La date d'une ligne est celle de la publication : sans décalage d'un jour (J+1) ou de deux jours (J+2), le croisement avec les feux est faux.
+- **Règle retenue :** à décider : retenir la prévision J+1 (la plus récente) ou la prévision J+2 (celle disponible plus tôt pour organiser le dispositif). Le choix dépend du délai dont le SDIS a besoin pour déclencher le dispositif renforcé (à demander à la direction) (lien vers le journal à ajouter).
+- **Unité ou granularité :** département ; jour concerné ; date de publication.
+- **Exemple :** pour le 10 juillet 2026 en Haute-Garonne : niveau 3 dans le bulletin du 8 juillet (J+2), niveau 4 dans celui du 9 juillet (J+1).
+- **Statut :** validé (fonctionnement confirmé par Météo-France) ; choix de la prévision à décider.
+- **Origine de la définition :** documentation Météo-France ; constat de la fiche Météo des forêts.
+- **Ajouté par :** Hocine Ait Yakoub (fiche Météo des forêts), 2026-11-17
 
 ## Région
 
 - **Définition :** la région administrative Occitanie, qui regroupe 13 départements : Ariège (09), Aude (11), Aveyron (12), Gard (30), Haute-Garonne (31), Gers (32), Hérault (34), Lot (46), Lozère (48), Hautes-Pyrénées (65), Pyrénées-Orientales (66), Tarn (81), Tarn-et-Garonne (82).
 - **Sources et colonnes :** toutes les sources (code région ou déduit du code département).
-- **Divergences :** l'Occitanie existe depuis 2016 (fusion de Languedoc-Roussillon et Midi-Pyrénées) ; des données anciennes peuvent être rangées sous les anciennes régions. Seuls les départements méditerranéens seraient suivis par Prométhée (liste à vérifier).
+- **Divergences :** l'Occitanie existe depuis 2016 (fusion de Languedoc-Roussillon et Midi-Pyrénées) ; des données anciennes peuvent être rangées sous les anciennes régions. Seuls les départements méditerranéens seraient suivis par Prométhée (liste à vérifier). Dans EFFIS, le Gers n'a aucune surface brûlée enregistrée : la région n'y est représentée que par 12 départements.
 - **Règle retenue :** à décider. Piste : définir la région par la liste des 13 codes département, quelle que soit l'année (lien vers le journal à ajouter).
 - **Unité ou granularité :** région ; agrégée par département.
 - **Exemple :** 31 = Haute-Garonne, département du commanditaire.
@@ -202,13 +226,13 @@ Dernière mise à jour : 2026-11-17
 ## Saison feux
 
 - **Définition :** la période de l'année où le risque de feux de forêt est le plus fort et où le dispositif de lutte est renforcé. La direction parle de « l'été » et prépare « le printemps et l'été ».
-- **Sources et colonnes :** commande de la direction ; Météo des forêts (période de publication) ; BDIFF (dates des feux).
-- **Divergences :** « l'été » de la direction (calendrier) n'est pas forcément la période de publication de la Météo des forêts, ni la période fixée par arrêté préfectoral. Des feux ont aussi lieu au printemps ou en hiver, notamment en zone de montagne.
-- **Règle retenue :** à décider : bornes de dates retenues pour comparer les saisons 2026 et 2027 (lien vers le journal à ajouter).
+- **Sources et colonnes :** commande de la direction ; Météo des forêts (période de publication) ; BDIFF et EFFIS (dates des feux).
+- **Divergences :** « l'été » de la direction (calendrier) ne correspond pas exactement à la période de publication de la Météo des forêts (3 juin au 30 septembre en 2024 et 2025, 28 mai au 5 octobre en 2026), ni à la période fixée par arrêté préfectoral. Surtout, d'après EFFIS, 85 % des surfaces brûlées en Occitanie (1 718 sur 2 016 depuis 2000) l'ont été hors de juin à septembre, principalement de janvier à avril et en montagne.
+- **Règle retenue :** à décider : bornes de dates retenues pour comparer les saisons, et traitement des feux hors saison (lien vers le journal à ajouter).
 - **Unité ou granularité :** période (dates de début et de fin) ; année.
-- **Exemple :** saison 2026 (référence de la direction).
+- **Exemple :** saison 2026 de la Météo des forêts : du 28 mai au 5 octobre.
 - **Statut :** à vérifier
-- **Origine de la définition :** commande de la direction ; période de publication de la Météo des forêts à confirmer.
+- **Origine de la définition :** commande de la direction ; documentation et archives de la Météo des forêts ; fiche EFFIS.
 - **Ajouté par :** Maha Younsi, Hocine Ait Yakoub (analyses individuelles), 2026-11-16
 
 ## SDIS (Service départemental d'incendie et de secours)
@@ -221,16 +245,16 @@ Dernière mise à jour : 2026-11-17
 - **Exemple :** SDIS 31 (Haute-Garonne).
 - **Statut :** proposé
 - **Origine de la définition :** Code général des collectivités territoriales.
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Ajouté par :** Maha Younsi (analyse individuelle), 2026-11-16
 
 ## Seuil de déclenchement
 
 - **Définition :** le niveau de la Météo des forêts à partir duquel le SDIS active le dispositif renforcé. C'est la décision que la direction nous demande d'éclairer.
-- **Sources et colonnes :** commande de la direction ; Météo des forêts (niveau du jour) ; BDIFF (feux observés).
-- **Divergences :** le seuil actuel n'est pas indiqué dans la commande. Un seuil trop bas déclenche des alertes sans feu (coût inutile) ; un seuil trop haut laisse passer des feux les jours de danger faible.
+- **Sources et colonnes :** commande de la direction ; Météo des forêts (niveau prévu) ; BDIFF et EFFIS (feux observés).
+- **Divergences :** le seuil actuel n'est pas indiqué dans la commande. Un seuil trop bas déclenche des alertes sans feu (coût inutile) ; un seuil trop haut laisse passer des feux les jours de danger faible. Les jours aux niveaux 3 et 4 sont rares et varient beaucoup d'une année à l'autre, ce qui rend l'estimation fragile sur trois saisons.
 - **Règle retenue :** à décider après analyse ; seuil actuel à demander à la direction (lien vers le journal à ajouter).
-- **Unité ou granularité :** niveau de danger ; jour ; zone ou département.
-- **Exemple :** sans objet.
+- **Unité ou granularité :** niveau de danger ; jour ; département.
+- **Exemple :** un seuil fixé au niveau 3 aurait déclenché le dispositif 1 jour en 2024 et 35 jours en 2026 en Haute-Garonne.
 - **Statut :** à vérifier
 - **Origine de la définition :** commande de la direction.
 - **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-16
@@ -238,23 +262,35 @@ Dernière mise à jour : 2026-11-17
 ## Surface brûlée
 
 - **Définition :** l'étendue de terrain parcourue par un feu, exprimée en hectares.
-- **Sources et colonnes :** BDIFF (surface parcourue, parfois détaillée par type de végétation), Prométhée.
-- **Divergences :** une source peut donner la surface totale ou la détailler (forêt, landes, autres terres). Les surfaces sont souvent estimées et non mesurées. Les petits feux peuvent avoir une surface arrondie ou nulle.
+- **Sources et colonnes :** BDIFF (surface parcourue, parfois détaillée par type de végétation), Prométhée, EFFIS (surface cartographiée par satellite et part de chaque type d'occupation du sol, voir la [fiche EFFIS](sources/fiche-effis.md)).
+- **Divergences :** une source peut donner la surface totale ou la détailler (forêt, landes, autres terres). Les surfaces BDIFF sont souvent estimées et non mesurées. EFFIS mesure le contour vu par satellite, mais ne voit pas les petits feux ; un même feu peut y apparaître en plusieurs surfaces, et certaines surfaces sont à 0 ha.
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
 - **Unité ou granularité :** hectare ; un feu.
-- **Exemple :** à compléter avec une valeur tirée d'une source.
+- **Exemple :** EFFIS, feu du 24 juin 2026 à Fauga (Haute-Garonne) : 16 ha.
 - **Statut :** à vérifier
-- **Origine de la définition :** à confirmer dans la documentation BDIFF.
-- **Ajouté par :** Maha Younsi (analyses individuelles), 2026-11-16
+- **Origine de la définition :** à confirmer dans la documentation BDIFF ; documentation EFFIS.
+- **Ajouté par :** Maha Younsi (à partir de la consigne et des sources), 2026-11-16
 
 ## Territoire national
 
 - **Définition :** l'ensemble de la France auquel la direction veut comparer la Haute-Garonne et l'Occitanie.
-- **Sources et colonnes :** commande de la direction ; couverture géographique de BDIFF et de la Météo des forêts.
-- **Divergences :** France métropolitaine seule, ou avec l'outre-mer ? Les sources n'ont pas forcément la même couverture : il faut comparer sur un territoire couvert par toutes.
-- **Règle retenue :** à décider. Piste : France métropolitaine (lien vers le journal à ajouter).
+- **Sources et colonnes :** commande de la direction ; couverture géographique de chaque source.
+- **Divergences :** la Météo des forêts ne couvre que l'Hexagone et la Corse (96 départements, pas d'outre-mer). La documentation de la BDIFF annonce la métropole et les départements d'outre-mer. EFFIS couvre toute l'Europe, filtrable par pays. Pour comparer, il faut se limiter au territoire couvert par toutes les sources utilisées.
+- **Règle retenue :** à décider. Piste : France métropolitaine (96 départements), seul territoire couvert par la Météo des forêts (lien vers le journal à ajouter).
 - **Unité ou granularité :** France ; agrégé par département.
 - **Exemple :** sans objet.
 - **Statut :** à vérifier
-- **Origine de la définition :** commande de la direction ; couverture des sources à confirmer.
+- **Origine de la définition :** commande de la direction ; fiches BDIFF, Météo des forêts et EFFIS.
 - **Ajouté par :** Maha Younsi, Soukaina Goumih (analyses individuelles), 2026-11-16
+
+---
+
+## Termes des analyses regroupés ou écartés
+
+| Terme proposé | Proposé par | Décision | Raison |
+|---|---|---|---|
+| Zone de prévision | Maha Younsi | Écarté | La Météo des forêts est publiée par département, pas par zone : le terme ne correspond à aucune donnée. |
+| Indice au plus bas | Hocine Ait Yakoub | Regroupé dans « Météo des forêts » | Correspond au niveau 1 (faible) de l'échelle. |
+| Niveau d'indice / indice élevé | Samy Bouaouni | Regroupé dans « Météo des forêts » et « Danger élevé » | Même notion que les niveaux de l'échelle. |
+| Seuil actuel | Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih | Regroupé dans « Seuil de déclenchement » | Valeur actuelle du seuil, à demander à la direction. |
+| Été | Hocine Ait Yakoub | Regroupé dans « Saison feux » | Même période, vue par la direction. |
