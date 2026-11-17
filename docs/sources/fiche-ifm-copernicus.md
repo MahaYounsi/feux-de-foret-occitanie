@@ -1,37 +1,39 @@
-# Fiche d'identité — Indices de danger feu historiques (Copernicus EWDS)
+# Fiche d'identité — Indice Forêt Météo (IFM / FWI), Copernicus
 
-**Explorée par** — Maha Younsi, le 17 novembre 2026
-**Périmètre du projet** — Occitanie, avec un focus sur la Haute-Garonne (31)
-**Fichiers ouverts** — **aucun fichier de données pour l'instant** : le téléchargement demande un compte (voir « Mode d'accès »). Cette fiche s'appuie sur le catalogue de l'Early Warning Data Store (métadonnées et formulaire de téléchargement). Les rubriques qui dépendent du contenu d'un fichier sont marquées « non vérifiée ».
+- **Explorée par :** Hocine Ait Yakoub (responsable qualité), 2026-11-17
+- **Page de la source :** https://ewds.climate.copernicus.eu/datasets/cems-fire-historical-v1 (« Fire danger indices historical data from the Copernicus Emergency Management Service »)
+- **Fichier ouvert :** un extrait téléchargé le 2026-11-17 : variable *Fire weather index*, réanalyse, jeu consolidé, version 4.1, du 1er juin au 30 septembre 2025, rectangle Nord 51.5 / Sud 41 / Ouest -5.5 / Est 10, grille 0.25° × 0.25°, format NetCDF4.
+
+> **Le mot « canadien » :** le FWI (Fire Weather Index) est une méthode de calcul conçue par le Service canadien des forêts, devenue la référence internationale. Les données sont bien celles de la France : la méthode est appliquée à la météo de chaque point de la grille. L'IFM de Météo-France est le nom français de cet indice, et la documentation de la Météo des forêts indique que Météo-France s'en sert pour établir ses niveaux de danger.
 
 | Rubrique | Valeur |
 |---|---|
-| Propriétaire et système | **Copernicus Emergency Management Service (CEMS)**, produit par le **CEPMMT (ECMWF)** pour le **Centre commun de recherche (JRC)** de la Commission européenne, dans le cadre du système européen EFFIS. Jeu « Fire danger indices historical data from the Copernicus Emergency Management Service » (`cems-fire-historical-v1`), DOI 10.24381/cds.0e89c522. Les indices sont calculés à partir de la **réanalyse météorologique ERA5**, et non à partir des données de Météo-France. |
-| Mode d'accès et format | **Formulaire web ou API** de l'Early Warning Data Store, avec **compte obligatoire** (l'API renvoie « authentication required » sans identifiant). Formats proposés : **GRIB** ou **NetCDF4** (indiqué comme expérimental). On choisit la variable, l'année, le mois, le jour, la grille (originale, 0,25° ou 0,5°) et une zone géographique. |
-| Grain (une ligne = ?) | **Non vérifiée**, aucun fichier ouvert. D'après le formulaire : une valeur par maille de grille et par jour sélectionné. |
-| Emprise géographique | **Mondiale** d'après les métadonnées. Le formulaire permet de découper une zone (pas de 0,05°), donc d'extraire l'Occitanie ou la France. |
-| Période réellement couverte | **Non vérifiée** dans un fichier. Les métadonnées annoncent du **3 janvier 1940 au 14 novembre 2026**. Deux versions existent : « consolidated » (consolidée) et « intermediate » (provisoire, pour la période la plus récente). |
-| Date de dernière mise à jour affichée sur la fiche | **16 novembre 2026** (catalogue EWDS). Jeu publié le 30 septembre 2019. |
-| Fréquence de mise à jour | **Quotidienne** d'après les métadonnées du catalogue. |
-| Volumétrie | **Non vérifiée** : aucun fichier téléchargé. Elle dépendra de la zone, de la période et des variables choisies. |
-| Clés disponibles | **Latitude, longitude et date** (d'après le formulaire ; non vérifiée dans un fichier). **Pas de code département** : il faudra une jointure spatiale avec les contours des départements (Admin Express) pour agréger par département et croiser avec la Météo des forêts ou la BDIFF. |
-| Données personnelles | **Aucune** : indices météorologiques calculés sur une grille (description du jeu). |
-| Licence | **CC-BY 4.0** (catalogue EWDS), citation de la source obligatoire. |
-| Questions de l'analyse | **Q3, Q4 et Q6** sur une période beaucoup plus longue que la Météo des forêts (3 saisons seulement), en croisant avec la BDIFF. **Q9** : situer la saison 2026 par rapport aux décennies précédentes. Variable utile : `fire_weather_index` (indice canadien FWI), plus ses composantes (`fine_fuel_moisture_code`, `duff_moisture_code`, `drought_code`, `initial_fire_spread_index`, `build_up_index`, `fire_daily_severity_rating`). |
+| Propriétaire et système | Copernicus Emergency Management Service (CEMS), pour le système européen d'information sur les feux de forêt (EFFIS). Données calculées par le Centre européen de prévision météorologique à moyen terme (ECMWF), à partir de la réanalyse météo ERA5. Attributs du fichier : `institution = European Centre for Medium-Range Weather Forecasts`. |
+| Mode d'accès (export, API, téléchargement) et format | Téléchargement par formulaire sur l'Early Warning Data Store (EWDS) : compte gratuit obligatoire, acceptation de la licence, puis demande placée en file d'attente avant le téléchargement. Une API existe aussi (code proposé par le formulaire) : non testée. Formats proposés : GRIB ou NetCDF4, marqué « Experimental ». Le fichier reçu est un NetCDF4 (HDF5), converti depuis du GRIB2. |
+| Grain (une ligne = ?) | Une valeur = un point de grille de 0,25° × 0,25° (environ 28 km × 20 km en France) × un jour. Variable `fwinx`, sans unité (`units = Numeric`), dimensions `valid_time × latitude × longitude`. |
+| Emprise géographique | Terres émergées du monde entier d'après la page. Dans l'extrait : 43 latitudes × 63 longitudes = 2 709 points, de 41° à 51,5° Nord et de -5,5° à 10° Est. Ce rectangle déborde sur les pays voisins (Espagne, Royaume-Uni, Belgique, Allemagne, Suisse, Italie) : il faut le découper sur les limites de la France. |
+| Période réellement couverte par les données | Dans le fichier ouvert : du 2025-06-01 au 2025-09-30, 122 jours consécutifs, sans trou. La page annonce une couverture de 1940 à aujourd'hui, et le formulaire propose les années 1940 à 2026 : **non vérifiée dans un fichier**, seul l'extrait 2025 a été téléchargé. |
+| Date de dernière mise à jour affichée sur la fiche | 2026-11-16, d'après la page EWDS. |
+| Fréquence de mise à jour | Quotidienne d'après la page, prolongée à mesure que la réanalyse ERA5 est disponible. Le formulaire distingue un jeu « Consolidated » et un jeu « Intermediate » : le délai entre les deux est **non vérifié**. |
+| Volumétrie | Extrait ouvert : 2 709 points × 122 jours = 330 498 valeurs, 655 Ko. Volume complet (toutes les années, toute la France) : **non vérifié**, aucun téléchargement complet n'a été fait. |
+| Clés disponibles (sur quoi pourra-t-on joindre ?) | Latitude, longitude et date (`valid_time`). **Il n'y a pas de code département ni de code commune.** Pour joindre avec la Météo des forêts ou BDIFF, il faut rattacher chaque point de grille à un département (avec le GeoJSON des départements fourni avec la Météo des forêts, par exemple). Test fait : la Haute-Garonne contient 13 points de grille. |
+| Données personnelles | Aucune : des valeurs météo calculées sur une grille. |
+| Licence | CC-BY (affichée sur la page et à accepter dans le formulaire). Citation de la source obligatoire. |
+| Questions de mon analyse auxquelles elle pourrait répondre | Q2, Q3 et Q4 sur une période beaucoup plus longue que la Météo des forêts, à condition de traduire l'indice en niveaux comparables. En partie Q1 : la grille de 25 km distingue des zones à l'intérieur de la Haute-Garonne (13 points), mais elle mesure un danger météo, pas des feux. |
 
-## Points de vigilance
+## Points qualité relevés
 
-- **Ce n'est pas l'indice de la direction** : la Météo des forêts publie des niveaux de 1 à 4, établis par Météo-France à partir de son propre IFM, de la sécheresse de la végétation et de la surface forestière. Copernicus fournit une valeur continue calculée avec ERA5. La correspondance entre `fire_weather_index` et l'IFM de Météo-France reste **à vérifier**.
-- **Traduire en niveaux** : pour répondre à la direction, il faudra définir des seuils de FWI équivalents aux niveaux de la Météo des forêts, par exemple en comparant les deux sur les saisons 2024 à 2026.
-- **Format technique** : GRIB et NetCDF demandent des bibliothèques spécifiques (xarray, cfgrib, netCDF4). À coordonner avec Sami (pipeline).
+1. **Ce n'est pas le même indicateur que la Météo des forêts.** Le FWI est une valeur continue (de 0 à 43 en Haute-Garonne à l'été 2025), alors que la Météo des forêts publie 4 niveaux établis par des prévisionnistes, qui ajoutent la sécheresse de la végétation et l'occupation des sols. Aucune table de passage officielle entre FWI et niveaux n'a été trouvée.
+2. **Test exploratoire : le lien avec la Météo des forêts est fort.** En Haute-Garonne, du 1er juin au 30 septembre 2025, j'ai comparé le FWI moyen du département avec le niveau de la Météo des forêts du même jour (`niveau_j1` décalé d'un jour), sur 119 jours communs. FWI moyen de 4,8 les jours de niveau 1 (68 jours), de 15,5 au niveau 2 (41 jours) et de 31,5 au niveau 3 (10 jours). Corrélation de rang de Spearman : 0,81. Le FWI pourrait donc servir à **reconstituer un historique avant 2024**, mais c'est une hypothèse à valider en groupe, pas une donnée de la source.
+3. **Environ 18 % de valeurs vides dans l'extrait.** Elles correspondent à la mer (la source ne couvre que les terres). C'est normal, mais il faut les exclure et non les traiter comme des zéros.
+4. **Les petits départements n'ont aucun point de grille.** Paris (75), les Hauts-de-Seine (92) et la Seine-Saint-Denis (93) ne contiennent aucun point à 0,25° : il faut une autre règle d'agrégation (point le plus proche, moyenne pondérée par la surface). Ça ne touche pas l'Occitanie, mais ça compte pour la comparaison nationale (Q4).
+5. **Grille interpolée.** La grille 0,25° est une interpolation de la grille d'origine (environ 31 km d'après la page). La valeur d'un point n'est pas une mesure de station météo.
+6. **Format peu pratique et marqué « Experimental ».** NetCDF4 ou GRIB, lisibles avec Python (`xarray`) mais pas avec un tableur. Il faut un compte et une file d'attente : à prévoir dans le pipeline (extraction non automatique sans l'API).
+7. **Heure de référence de la valeur quotidienne :** `valid_time` est à 00:00 chaque jour, mais l'heure exacte à laquelle l'indice est calculé n'est **pas vérifiée**. C'est à confirmer dans la documentation avant tout croisement fin avec les dates des feux.
 
-## Reste à faire
+## Rubriques non vérifiées
 
-1. Créer un compte sur l'Early Warning Data Store et accepter la licence CC-BY.
-2. Télécharger un premier échantillon : `fire_weather_index`, zone Occitanie, juillet 2025, NetCDF, version consolidée.
-3. Ouvrir le fichier et compléter les rubriques « non vérifiée » : grain, période, volumétrie, clés.
-
-## Liens consultés
-
-- [Fiche du jeu sur l'Early Warning Data Store](https://ewds.climate.copernicus.eu/datasets/cems-fire-historical-v1)
-- [Métadonnées du catalogue (API)](https://ewds.climate.copernicus.eu/api/catalogue/v1/collections/cems-fire-historical-v1)
+- **Période complète (1940 à aujourd'hui) et volumétrie totale :** seul l'extrait 2025 a été téléchargé.
+- **API :** non testée.
+- **Délai entre jeu intermédiaire et jeu consolidé :** non trouvé.
+- **Heure de calcul de l'indice quotidien :** non trouvée dans le fichier.
