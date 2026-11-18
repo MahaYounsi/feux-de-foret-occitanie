@@ -1,8 +1,8 @@
 # Glossaire — Occitanie
 
-Dernière mise à jour : 2026-11-17
+Dernière mise à jour : 2026-11-18
 
-> Version 0.1 : version 0 complétée avec les fiches sources (BDIFF, Météo des forêts, EFFIS, IFM Copernicus). Commanditaire : Direction du SDIS 31 (Haute-Garonne), voir [commande.md](commande.md).
+> Version 0.2 : ajouts issus des quatre confrontations questions × sources ([matrice](matrice/matrice.md), [journal des décisions](matrice/journal-des-decisions.md)). Version 0.1 : version 0 complétée avec les fiches sources (BDIFF, Météo des forêts, EFFIS, IFM Copernicus). Commanditaire : Direction du SDIS 31 (Haute-Garonne), voir [commande.md](commande.md).
 > Les définitions marquées « à vérifier » doivent être confirmées par la documentation du producteur avant validation. Toute modification passe par un ticket et une pull request relue par la cheffe de projet. On ne supprime jamais un terme : on le marque « obsolète » avec la raison et la date.
 
 ---
@@ -10,13 +10,13 @@ Dernière mise à jour : 2026-11-17
 ## Cause d'un feu
 
 - **Définition :** l'origine présumée d'un incendie, regroupée en grandes familles (par exemple : naturelle, accidentelle, involontaire liée à une activité humaine, malveillance, inconnue).
-- **Sources et colonnes :** BDIFF (colonne de nature ou de cause), Prométhée pour les départements méditerranéens. EFFIS ne donne pas de cause.
-- **Divergences :** les familles de causes et leur niveau de détail peuvent différer entre BDIFF et Prométhée. Une part importante des feux a une cause « inconnue ». La cause est souvent présumée, rarement établie.
-- **Règle retenue :** à décider (lien vers le journal à ajouter).
+- **Sources et colonnes :** BDIFF, colonne `Nature` (« Nature du feu »), avec 5 catégories constatées : Malveillance, Involontaire (travaux), Involontaire (particulier), Accidentelle, Naturelle ; la colonne `Connaissance` (niveau de connaissance de la cause) est toujours vide dans l'extrait. Prométhée pour les départements méditerranéens. EFFIS ne donne pas de cause.
+- **Divergences :** la cause n'est pas toujours renseignée : `Nature` est vide pour 29 % des incendies d'Occitanie en 2024 et 16 % en 2025, et pour les 5 incendies de la Haute-Garonne. Les familles de causes et leur niveau de détail peuvent différer entre BDIFF et Prométhée. La cause est souvent présumée, rarement établie.
+- **Règle retenue :** étudier les causes à l'échelle de l'Occitanie, pas du 31 seul ([D-009](matrice/journal-des-decisions.md#d-009--g8--causes-des-feux)) ; une cause vide est comptée comme « non renseignée », jamais comme une catégorie à part entière.
 - **Unité ou granularité :** un feu.
-- **Exemple :** à compléter avec une valeur tirée de la BDIFF.
-- **Statut :** à vérifier
-- **Origine de la définition :** à confirmer dans la documentation BDIFF et Prométhée.
+- **Exemple :** en Occitanie en 2025, 157 incendies BDIFF classés « Malveillance » sur 472.
+- **Statut :** validé (catégories constatées dans la BDIFF) ; correspondance avec Prométhée à vérifier.
+- **Origine de la définition :** BDIFF (couches Géorisques 2024 et 2025, colonne `Nature`) ; description de la couche (causes naturelles ou humaines : intentionnelles, involontaires, liées aux infrastructures).
 - **Ajouté par :** Maha Younsi (à partir de la consigne et des sources), 2026-11-16
 
 ## Chef de centre
@@ -60,7 +60,7 @@ Dernière mise à jour : 2026-11-17
 - **Définition :** le jour et l'heure où les secours ont été prévenus d'un feu. C'est la meilleure approximation disponible du moment où le feu a démarré, mais ce n'est pas l'heure exacte du départ.
 - **Sources et colonnes :** BDIFF (date et heure de première alerte, voir la [fiche BDIFF](sources/fiche-bdiff.md)). EFFIS donne une « date du feu » estimée par satellite, qui n'est pas une date d'alerte.
 - **Divergences :** l'horodatage est fourni en heure UTC dans la diffusion explorée ; il faut le convertir en heure locale avant d'en extraire le jour. Pour le croiser avec la Météo des forêts, il faut retrouver le niveau prévu pour ce jour-là, et non le niveau publié ce jour-là (voir « Prévision J+1 / J+2 »).
-- **Règle retenue :** à décider : conversion en heure locale, puis croisement avec le niveau prévu pour ce jour (lien vers le journal à ajouter).
+- **Règle retenue :** l'heure de première alerte, convertie en heure locale, sert d'approximation de l'heure de départ ([D-003](matrice/journal-des-decisions.md#d-003--g2--heure-des-départs-de-feu)) ; choix entre prévision J+1 et J+2 encore en attente.
 - **Unité ou granularité :** date et heure ; un feu.
 - **Exemple :** à compléter avec une valeur tirée de la BDIFF.
 - **Statut :** à vérifier
@@ -71,7 +71,7 @@ Dernière mise à jour : 2026-11-17
 
 - **Définition :** le début d'un incendie, c'est-à-dire le lieu et le moment où il démarre, quelle que soit la surface brûlée ensuite.
 - **Sources et colonnes :** terme employé par la direction dans la commande ; BDIFF (date et commune d'alerte), données d'intervention des SDIS.
-- **Divergences :** la direction parle de « départs de feu » et de « feux de forêt » dans le même courrier. BDIFF recense des feux de forêt, avec parfois un seuil de surface. Les SDIS comptent des interventions. EFFIS ne recense pas des départs mais des surfaces brûlées vues par satellite, sans les petits feux. Un départ de feu éteint très vite peut n'apparaître dans aucune de ces sources.
+- **Divergences :** la direction parle de « départs de feu » et de « feux de forêt » dans le même courrier. BDIFF recense des feux de forêt, avec parfois un seuil de surface. Les SDIS comptent des interventions. EFFIS ne recense pas des départs mais des surfaces brûlées vues par satellite, sans les petits feux. Un départ de feu éteint très vite peut n'apparaître dans aucune de ces sources. En Haute-Garonne, sur 2024-2025, la BDIFF ne compte que 5 incendies alors qu'EFFIS cartographie 12 surfaces brûlées : les deux sources ne retiennent pas les mêmes événements (écart à expliquer, voir le journal).
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
 - **Unité ou granularité :** un événement ; date (et heure si disponible) ; commune.
 - **Exemple :** à compléter avec une valeur tirée de la BDIFF.
@@ -83,7 +83,7 @@ Dernière mise à jour : 2026-11-17
 
 - **Définition :** une division administrative identifiée par un code INSEE. L'Occitanie en compte 13 : 09, 11, 12, 30, 31, 32, 34, 46, 48, 65, 66, 81, 82. Le département du commanditaire est la Haute-Garonne (31).
 - **Sources et colonnes :** toutes les sources : code département dans la Météo des forêts, déduit du code commune dans la BDIFF, nom en texte dans EFFIS.
-- **Divergences :** le code INSEE du département ne correspond pas toujours au territoire couvert par un service d'incendie (SDIS). Certaines interventions sont faites en renfort hors du département. Le format du code change selon la source et l'année : dans la Météo des forêts, « 9 » pour l'Ariège en 2024 et 2025, mais « 09 » en 2026 ; la Corse est codée « 2A » et « 2B ». EFFIS ne donne que le nom du département.
+- **Divergences :** le code INSEE du département ne correspond pas toujours au territoire couvert par un service d'incendie (SDIS). Certaines interventions sont faites en renfort hors du département. Le format du code change selon la source et l'année : dans la Météo des forêts, « 9 » pour l'Ariège en 2024 et 2025, mais « 09 » en 2026 ; la Corse est codée « 2A » et « 2B ». EFFIS ne donne que le nom du département. L'IFM Copernicus n'en donne aucun : il faut rattacher chaque point de grille à un département par sa position.
 - **Règle retenue :** à décider. Piste : rattacher chaque feu au département de sa commune de départ, avec un code toujours sur deux caractères (lien vers le journal à ajouter).
 - **Unité ou granularité :** département (code INSEE).
 - **Exemple :** 31 = Haute-Garonne.
@@ -143,13 +143,13 @@ Dernière mise à jour : 2026-11-17
 
 - **Définition :** une note calculée chaque jour à partir de la météo (température, humidité, vent, pluie) qui estime le danger qu'un feu démarre, se propage et soit intense. Plus la valeur est haute, plus le danger est grand.
 - **Sources et colonnes :** Météo-France l'utilise pour calculer l'Indice de danger intégré (non diffusé dans les archives explorées). Copernicus diffuse un indice équivalent, `fire_weather_index`, calculé sur une grille mondiale depuis 1940 (voir la [fiche IFM Copernicus](sources/fiche-ifm-copernicus.md)).
-- **Divergences :** l'IFM est une valeur numérique continue, alors que la Météo des forêts publie des niveaux de 1 à 4. Dans la commande, la direction dit « l'indice » pour parler du niveau de la Météo des forêts, pas de l'IFM. L'indice de Copernicus est calculé avec d'autres données météorologiques (réanalyse ERA5) que celui de Météo-France : la correspondance entre les deux reste à vérifier.
-- **Règle retenue :** à décider (lien vers le journal à ajouter).
-- **Unité ou granularité :** sans unité ; jour ; maille de grille.
-- **Exemple :** à compléter une fois un fichier Copernicus téléchargé.
+- **Divergences :** l'IFM est une valeur numérique continue, alors que la Météo des forêts publie des niveaux de 1 à 4. Dans la commande, la direction dit « l'indice » pour parler du niveau de la Météo des forêts, pas de l'IFM. L'indice de Copernicus est calculé avec d'autres données météorologiques (réanalyse ERA5) que celui de Météo-France : la correspondance entre les deux reste à vérifier. Le fichier Copernicus n'a pas de code département : il faut une jointure spatiale des points de grille (13 points en Haute-Garonne ; aucun à Paris, dans les Hauts-de-Seine et en Seine-Saint-Denis).
+- **Règle retenue :** utilisation comme approximation du niveau de la Météo des forêts avant 2024, à tester ([journal, D-004](matrice/journal-des-decisions.md#d-004--g3--part-des-jours-avec-feu-par-niveau)).
+- **Unité ou granularité :** sans unité ; jour ; maille de grille (0,25°).
+- **Exemple :** Haute-Garonne, été 2025 : valeur moyenne de 4,8 les jours au niveau 1 de la Météo des forêts, 15,5 au niveau 2 et 31,5 au niveau 3.
 - **Statut :** à vérifier
 - **Origine de la définition :** documentation Météo-France (PDF de présentation) ; catalogue Copernicus.
-- **Ajouté par :** Maha Younsi (analyse individuelle), 2026-11-16
+- **Ajouté par :** Maha Younsi (analyse individuelle), 2026-11-16 ; complété par Hocine Ait Yakoub (confrontation), 2026-11-18
 
 ## Intervention pour incendie
 
@@ -162,6 +162,18 @@ Dernière mise à jour : 2026-11-17
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation du producteur.
 - **Ajouté par :** Maha Younsi (à partir de la consigne et des sources), 2026-11-16
+
+## Jour sans feu
+
+- **Définition :** un jour où aucun départ de feu n'a été recensé dans le territoire étudié. Il sert à calculer la part des jours avec feu pour chaque niveau de danger.
+- **Sources et colonnes :** déduit de la BDIFF (aucun incendie avec ce `Departement` et ce jour local de `Date_de_premiere_alerte`) ou d'EFFIS (aucune surface avec cette `province` et cette `firedate`).
+- **Divergences :** un jour sans feu recensé n'est pas forcément un jour sans feu réel : la couche BDIFF explorée signale des lignes non intégrées, et EFFIS ne voit pas les petits feux. Un « zéro » peut donc être un vrai zéro ou une absence de donnée.
+- **Règle retenue :** à décider : ne compter comme « jour sans feu » que les jours couverts par une source dont la complétude a été vérifiée sur la période (point soulevé dans la fiche BDIFF et l'inventaire).
+- **Unité ou granularité :** un jour × un département.
+- **Exemple :** sans objet (à établir après le croisement BDIFF × Météo des forêts).
+- **Statut :** proposé
+- **Origine de la définition :** décision du groupe (à formaliser) ; fiche BDIFF, « Point de vigilance ».
+- **Ajouté par :** Soukaina Goumih (fiche BDIFF et inventaire), Maha Younsi (matrice), 2026-11-18
 
 ## Météo des forêts
 
@@ -228,7 +240,7 @@ Dernière mise à jour : 2026-11-17
 - **Définition :** la période de l'année où le risque de feux de forêt est le plus fort et où le dispositif de lutte est renforcé. La direction parle de « l'été » et prépare « le printemps et l'été ».
 - **Sources et colonnes :** commande de la direction ; Météo des forêts (période de publication) ; BDIFF et EFFIS (dates des feux).
 - **Divergences :** « l'été » de la direction (calendrier) ne correspond pas exactement à la période de publication de la Météo des forêts (3 juin au 30 septembre en 2024 et 2025, 28 mai au 5 octobre en 2026), ni à la période fixée par arrêté préfectoral. Surtout, d'après EFFIS, 85 % des surfaces brûlées en Occitanie (1 718 sur 2 016 depuis 2000) l'ont été hors de juin à septembre, principalement de janvier à avril et en montagne.
-- **Règle retenue :** à décider : bornes de dates retenues pour comparer les saisons, et traitement des feux hors saison (lien vers le journal à ajouter).
+- **Règle retenue :** l'analyse du seuil se limite à la saison de publication de la Météo des forêts ; les feux hors saison sont traités à part ([D-005](matrice/journal-des-decisions.md#d-005--g4--feux-les-jours-de-danger-faible-et-hors-saison)) ; croisements commencés sur les saisons 2024 et 2025 ([D-011](matrice/journal-des-decisions.md#d-011--période-commune-pour-les-croisements)).
 - **Unité ou granularité :** période (dates de début et de fin) ; année.
 - **Exemple :** saison 2026 de la Météo des forêts : du 28 mai au 5 octobre.
 - **Statut :** à vérifier
@@ -262,8 +274,8 @@ Dernière mise à jour : 2026-11-17
 ## Surface brûlée
 
 - **Définition :** l'étendue de terrain parcourue par un feu, exprimée en hectares.
-- **Sources et colonnes :** BDIFF (surface parcourue, parfois détaillée par type de végétation), Prométhée, EFFIS (surface cartographiée par satellite et part de chaque type d'occupation du sol, voir la [fiche EFFIS](sources/fiche-effis.md)).
-- **Divergences :** une source peut donner la surface totale ou la détailler (forêt, landes, autres terres). Les surfaces BDIFF sont souvent estimées et non mesurées. EFFIS mesure le contour vu par satellite, mais ne voit pas les petits feux ; un même feu peut y apparaître en plusieurs surfaces, et certaines surfaces sont à 0 ha.
+- **Sources et colonnes :** BDIFF (`Surface_parcourue`, détaillée en `Surface_foret`, `Surface_maquis_garrigues`, `Surfaces_agricoles`, etc., avec `Precision_des_surfaces` : « Mesurées » ou « Estimées » ; unité à confirmer, des valeurs comme 40 000 pour un feu du 31 suggèrent des mètres carrés), Prométhée, EFFIS (surface cartographiée par satellite et part de chaque type d'occupation du sol, voir la [fiche EFFIS](sources/fiche-effis.md)).
+- **Divergences :** une source peut donner la surface totale ou la détailler (forêt, landes, autres terres). Dans la BDIFF, les surfaces sont « Estimées » pour environ 16 % des incendies d'Occitanie (67 sur 413 en 2024, 77 sur 472 en 2025), « Mesurées » pour les autres ; l'unité des colonnes n'est pas documentée dans la couche explorée. EFFIS mesure le contour vu par satellite, mais ne voit pas les petits feux ; un même feu peut y apparaître en plusieurs surfaces, et certaines surfaces sont à 0 ha.
 - **Règle retenue :** à décider (lien vers le journal à ajouter).
 - **Unité ou granularité :** hectare ; un feu.
 - **Exemple :** EFFIS, feu du 24 juin 2026 à Fauga (Haute-Garonne) : 16 ha.
