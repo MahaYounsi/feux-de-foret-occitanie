@@ -144,7 +144,57 @@ Objectif suivi : [01_objectif_maha-younsi.md](01_objectif_maha-younsi.md) (D1, q
 
 ## Soukaina Goumih
 
-<!-- Fiche de Soukaina Goumih -->
+Objectif suivi dans [01_objectif_soukaina-goumih.md](01_objectif_soukaina-goumih.md) (D2, question G4). Fiche proposée pour relecture.
+
+### Fiche : part des départs de feu sous le seuil de renfort
+
+| Rubrique | Contenu |
+|---|---|
+| 1. Question et objectif | **G4.** Quelle part des feux survient un jour de danger faible ? Pour D2, comparer la couverture des seuils de renfort. Au 30 septembre 2027, viser dans le 31 une réduction d'au moins [x points de pourcentage] par rapport à `N = 3` sur les mêmes jours et feux, sans hausse de la part de jours de renfort sans feu recensé ni dépassement du budget. Fixer la cible avec le SDIS après avoir mesuré la référence locale. |
+| 2. Formule : numérateur, dénominateur, unité | **Numérateur** — feux recensés en saison avec un niveau J+1 apparié strictement inférieur à `N`. **Dénominateur** — tous les feux recensés en saison avec un niveau J+1 apparié dans le même périmètre. **Unité** — %. Chaque incendie est compté une fois, même si plusieurs feux partagent un jour et un département. Avec zéro feu apparié, afficher « non calculable ». |
+| 3. Paramètres | Seuil de référence `N = 3` et variantes `N = 2` ou `N = 4`. Un jour est classé en renfort simulé si son niveau prévu est supérieur ou égal à `N`. La prévision est le J+1 émis la veille. L'horodatage de première alerte est converti de l'UTC vers `Europe/Paris` avant d'en extraire la date. Fixer ces règles et la fenêtre saisonnière avant la comparaison. |
+| 4. Périmètre, période, granularité, fréquence | Haute-Garonne pour D2, Occitanie pour le repère historique (D-004). Saisons communes 2024 et 2025 pour le repère, saison 2027 avec bilan au 30 septembre pour l'objectif. Un feu est apparié à une seule prévision au grain département × jour. Suivi mensuel si le SDIS fournit un relevé d'intervention à jour, sinon bilan après publication des données annuelles. |
+| 5. Source et champs | [BDIFF](../docs/sources/fiche-bdiff.md), couches Géorisques 2024 (`FeatureServer/16`) et 2025 (`FeatureServer/13`) : `Departement` et `Date_de_premiere_alerte`. [Archives de la Météo des forêts](../docs/sources/fiche-archives-meteo-des-forets.md), CSV 2024 et 2025 : `num_dep`, `date` d'émission et `niveau_j1`. Joindre sur le code département harmonisé et le jour prévu, soit le jour d'émission + 1. |
+| 6. Lignes utilisables | La [section 2 du diagnostic](01_diagnostic_objectifs.md#2-hypothèse-stratégique-binôme-a) utilise **557/557 feux en saison (100 %)** en Occitanie et **4/4 (100 %)** dans le 31. Rapportés aux feux recensés toute l'année, ces effectifs représentent **557/885 (62,9 %)** et **4/5 (80 %)**. Les feux hors saison sont comptés à part (328 en Occitanie) et les échecs de jointure en saison sont à signaler séparément. |
+| 7. Proxy et biais | Le jour local de première alerte approxime le jour de départ réel. Une alerte après minuit peut déplacer le feu vers un autre niveau, dans les deux sens. Le seuil simule le déclenchement. Si le SDIS active parfois le renfort sous le seuil, la part estimée de feux hors renfort est **surestimée**. S'il omet des activations au-dessus du seuil, elle est **sous-estimée**. Si des petits feux sont davantage omis sous le seuil, le taux est **sous-estimé**. |
+| 8. Décision éclairée | Une part élevée justifie de tester un seuil plus bas et de chiffrer les jours supplémentaires. Si le coût ou la part de jours sans feu recensé dépasse la limite, soumettre le compromis au SDIS et examiner une surveillance ciblée. Si la part est faible et les volumes suffisants, le SDIS peut garder le seuil testé. |
+| 9. Propriétaire | Soukaina Goumih porte l'indicateur. Samy Bouaouni vérifie le calcul et Hocine Ait Yakoub relit la qualité des données et le RACER. Répartition proposée pour validation en groupe. |
+
+**Changement de paramètre.** En Occitanie, passer de `N = 3` à `N = 2` ramène le numérateur de **315 à 59** sur les mêmes **557** départs, soit de **57 % à 11 %**. À `N = 2`, seuls les feux des jours prévus au niveau 1 comptent au numérateur. Les sources, dates, clés de jointure, effectifs de référence et règles du garde-fou restent identiques. Les jours de renfort simulé passent de **254 à 1 054** et leur part sans départ recensé de **116/254 (46 %)** à **739/1 054 (70 %)**. Le seuil 2 couvre plus de feux sur ces saisons, mais échoue au garde-fou et demanderait de financer **800 jours-départements** supplémentaires à l'échelle régionale.
+
+**RACER**
+
+- **Relevant** — La part des départs sous le seuil renseigne directement le choix de seuil D2.
+- **Accepted** — Faire valider par le SDIS la définition d'un feu recensé, l'usage du J+1 et la cible locale.
+- **Credible** — La prévision et la date de première alerte sont définies et traçables, et le taux s'interprète avec le dénominateur et la part appariée.
+- **Easy** — Le calcul utilise deux sources publiques, et un suivi en cours de saison dépend des données d'intervention du SDIS.
+- **Robust** — Le taux est sensible au seuil, à la date retenue et aux petits effectifs, d'où les garde-fous et le contrôle de jointure.
+
+**Détournement (K4).** L'équipe qui calibre le seuil pourrait l'abaisser pour couvrir beaucoup plus de feux sur le papier. Le taux de feux sous le seuil baisserait mécaniquement, tandis que la charge de renfort pourrait dépasser le budget.
+
+**Garde-fou.** Afficher à côté du KPI la part des jours de renfort simulé sans feu recensé et le volume de jours à financer. Figer les dates et les règles de comptage avant le calcul. Pour le 31, afficher les effectifs et différer l'arbitrage local si le volume est inférieur au plancher à fixer avec le SDIS.
+
+**Risque résiduel.** Une journée de renfort sans feu recensé peut correspondre à un départ évité ou à un feu absent de la BDIFF. Le croisement mesure la couverture théorique de la règle. Les activations réelles et l'effet des patrouilles nécessitent des données du SDIS.
+
+**Second indicateur — part des jours de renfort simulé sans départ recensé.** Diviser le nombre de jours-départements au niveau J+1 supérieur ou égal à `N` sans départ recensé par le nombre total de jours-départements éligibles au même seuil, sur la même saison et le même périmètre, puis multiplier par 100. Sources : archives de la Météo des forêts et BDIFF. Partir des jours-départements météo en saison et y joindre le nombre de départs par jour-département. Si une rupture de couverture est identifiée, compter ces jours à part et les exclure des deux termes pour chaque scénario comparé. Avec zéro jour éligible, afficher « non calculable ». Repère régional à `N = 3` selon le diagnostic : **116/254 (46 %)**.
+
+**Pre-mortem**
+
+| Rang | Raison d'échec | Probabilité | Gravité | Garde-fou |
+|---|---|---|---|---|
+| 1 | Dans le 31, un feu reclassé change le taux historique de 25 points sur quatre feux en saison. Un seuil est retenu sur un résultat instable. | Élevée | Élevée | Afficher les volumes, fixer un effectif minimal, lire le repère régional et demander les données d'intervention au SDIS. |
+| 2 | L'équipe abaisse le seuil après avoir vu les résultats, puis recommande une règle qui mobilise trop souvent les équipes. | Moyenne | Élevée | Figer les règles avant le test, évaluer le taux sans départ recensé et la charge au regard du budget. |
+| 3 | Des alertes proches de minuit sont appariées au mauvais jour à cause de l'heure UTC ou du décalage J+1. | Moyenne | Moyenne | Vérifier un échantillon d'alertes près de minuit et de feux aux limites de saison. |
+
+**Rôle de chaque indicateur**
+
+| Indicateur | Rôle | Raison |
+|---|---|---|
+| Part des départs de feu sous le seuil | KPI principal D2 | Mesure la couverture de la règle de renfort testée. |
+| Nombre de jours de renfort simulé | KPI secondaire | Sert à chiffrer la charge et aide à éliminer les seuils incompatibles avec le budget. |
+| Part des jours de renfort simulé sans départ recensé | Garde-fou | Rend visible la mobilisation supplémentaire les jours où aucun feu n'est recensé. |
+| Nombre de feux appariés et part des feux hors saison | Contexte | Documente la solidité du taux et la limite calendaire de l'analyse. |
+| Température maximale seule | Écarté | Sa valeur seule ne permet pas de choisir un seuil de la Météo des forêts pour le dispositif. |
 
 ## Jeu d'indicateurs v0 (groupe)
 
