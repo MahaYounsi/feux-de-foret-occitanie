@@ -1,6 +1,6 @@
 # Glossaire — Occitanie
 
-Dernière mise à jour : 2026-11-18
+Dernière mise à jour : 2026-11-19
 
 > Version 0.2 : ajouts issus des quatre confrontations questions × sources ([matrice](matrice/matrice.md), [journal des décisions](matrice/journal-des-decisions.md)). Version 0.1 : version 0 complétée avec les fiches sources (BDIFF, Météo des forêts, EFFIS, IFM Copernicus). Commanditaire : Direction du SDIS 31 (Haute-Garonne), voir [commande.md](commande.md).
 > Les définitions marquées « à vérifier » doivent être confirmées par la documentation du producteur avant validation. Toute modification passe par un ticket et une pull request relue par la cheffe de projet. On ne supprime jamais un terme : on le marque « obsolète » avec la raison et la date.
@@ -103,6 +103,18 @@ Dernière mise à jour : 2026-11-18
 - **Origine de la définition :** commande de la direction.
 - **Ajouté par :** Maha Younsi, Hocine Ait Yakoub, Samy Bouaouni, Soukaina Goumih (analyses individuelles), 2026-11-16
 
+## Fausse alerte
+
+- **Définition :** un jour où le dispositif renforcé aurait été déclenché (niveau prévu de la Météo des forêts égal ou supérieur au seuil) sans qu'aucun départ de feu ne soit recensé dans le département ce jour-là.
+- **Sources et colonnes :** Météo des forêts (niveau prévu pour le lendemain ou le surlendemain, code département) croisée avec la BDIFF (`Departement` et jour local de `Date_de_premiere_alerte`).
+- **Divergences :** dans la commande, les chefs de centre en parlent d'après leur ressenti (« l'indice annonce souvent un danger élevé alors qu'aucun feu ne se déclare »), sans comptage. Un jour sans feu recensé n'est pas forcément un jour sans feu réel (voir « Jour sans feu ») : une fausse alerte apparente peut venir d'un feu absent de la BDIFF. Le nombre de fausses alertes dépend du seuil testé et de la prévision retenue (voir « Prévision J+1 / J+2 »).
+- **Règle retenue :** à décider : seuil testé, prévision retenue, et ne compter que les jours dont la couverture des feux est vérifiée (lien vers le journal à ajouter).
+- **Unité ou granularité :** un jour × un département.
+- **Exemple :** sans objet (à établir après le croisement BDIFF × Météo des forêts).
+- **Statut :** proposé
+- **Origine de la définition :** décision du groupe, à partir de la commande ; analyse individuelle (question 3).
+- **Ajouté par :** Hocine Ait Yakoub (analyse individuelle, question 3), 2026-11-19
+
 ## Feu de forêt
 
 - **Définition :** un incendie qui touche des forêts, landes, maquis ou garrigues. La définition couramment citée fixe un seuil d'au moins 1 hectare d'un seul tenant, avec une partie de la végétation arbustive ou arborée détruite.
@@ -114,6 +126,18 @@ Dernière mise à jour : 2026-11-18
 - **Statut :** à vérifier
 - **Origine de la définition :** à confirmer dans la documentation BDIFF / Géorisques.
 - **Ajouté par :** Maha Younsi, Hocine Ait Yakoub (analyses individuelles), 2026-11-16
+
+## Feu manqué
+
+- **Définition :** un départ de feu survenu un jour où le niveau prévu de la Météo des forêts était en dessous du seuil de déclenchement : le dispositif renforcé n'aurait pas été en place.
+- **Sources et colonnes :** BDIFF (`Departement` et jour local de `Date_de_premiere_alerte`) croisée avec la Météo des forêts (niveau prévu, code département).
+- **Divergences :** dans la commande, des chefs de centre disent avoir combattu des feux « partis des jours où l'indice était au plus bas ». Les feux survenus hors de la période de publication de la Météo des forêts n'ont aucun niveau associé : ce ne sont ni des feux manqués ni des feux couverts, il faut les compter à part. Ils sont nombreux : d'après EFFIS, 85 % des surfaces brûlées en Occitanie l'ont été hors de juin à septembre. Le nombre de feux manqués dépend du seuil testé et de la prévision retenue (voir « Prévision J+1 / J+2 »).
+- **Règle retenue :** les feux hors saison sont traités à part ([D-005](matrice/journal-des-decisions.md#d-005--g4--feux-les-jours-de-danger-faible-et-hors-saison)) ; seuil et prévision à décider.
+- **Unité ou granularité :** un départ de feu ; un jour ; un département.
+- **Exemple :** sans objet (à établir après le croisement BDIFF × Météo des forêts).
+- **Statut :** proposé
+- **Origine de la définition :** décision du groupe, à partir de la commande ; analyse individuelle (question 3).
+- **Ajouté par :** Hocine Ait Yakoub (analyse individuelle, question 3), 2026-11-19
 
 ## Guet
 
