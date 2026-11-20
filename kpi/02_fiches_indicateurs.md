@@ -140,7 +140,101 @@ Objectif suivi : [01_objectif_maha-younsi.md](01_objectif_maha-younsi.md) (D1, q
 
 ## Samy Bouaouni
 
-<!-- Fiche de Samy Bouaouni -->
+Objectif suivi : [01_objectif_samy-bouaouni.md](01_objectif_samy-bouaouni.md) (D2, question [G à confirmer]). Statut : brouillon, à relire par le groupe.
+
+### Fiche : taux de feux déclenchés sur des jours à indice bas
+
+| Rubrique | Contenu |
+|---|---|
+| 1. Question et objectif | **Question :** à partir de quel niveau de la Météo des forêts le SDIS doit-il déclencher son dispositif ? **Objectif :** d'ici la fin de la saison 2027, faire passer de [a %] à [b %] la part des départs de feu du 31 survenus un jour d'indice inférieur à N, N étant fixé avant le début de la saison, sans que le nombre de jours déclenchés dépasse [budget, à demander]. |
+| 2. Formule : numérateur, dénominateur, unité | **Numérateur :** nombre de départs de feu du 31, dans la période couverte par l'indice, survenus un jour D dont l'indice (`niveau_j1` de l'émission de la veille) est inférieur à N. **Dénominateur :** nombre de départs de feu du 31 sur la même période. **Unité :** %. |
+| 3. Paramètres | **N**, le niveau de déclenchement : 2, 3 ou 4 (valeur d'essai : 3). **L'horizon de l'indice :** `niveau_j1` (lendemain) ou `niveau_j2` (surlendemain). **La date retenue pour un feu :** la première alerte, convertie en heure locale. **La période :** la saison de l'indice, car il n'existe pas en dehors. **La maille :** le département, imposé par l'indice. |
+| 4. Périmètre, période, granularité, fréquence | **Périmètre :** la Haute-Garonne pour l'objectif ; l'Occitanie quand le 31 compte trop peu de feux (D-004). **Période :** saisons 2024, 2025 et 2026 pour les valeurs de départ, saison 2027 pour l'objectif. **Granularité :** un département pour un jour. **Fréquence :** une valeur par saison, car la BDIFF est publiée une fois par an. Le garde-fou (jours déclenchés) peut se suivre chaque mois si l'archive est mise à jour. |
+| 5. Source et champs | **Indice :** Archives de la Météo des forêts, voir la [fiche](../docs/sources/fiche-archives-meteo-des-forets.md). Champs : `date`, `num_dep` (= 31), `niveau_j1`. **Feux :** BDIFF, voir la [fiche BDIFF](../docs/sources/fiche-bdiff.md). Champs : `Date_de_premiere_alerte`, `Departement`, `Code_INSEE`, repris de la fiche de Maha, non vérifiés par moi. **Jointure :** le département (`num_dep` sur 2 caractères, `31`) et le jour calendaire. |
+| 6. Lignes utilisables | **Indice : 100 %.** 35 616 lignes sur 35 616 ont `date`, `num_dep`, `niveau_j1` et `niveau_j2` renseignés. Dans le 31 : 371 jours (120 + 120 + 131), sans trou. **Feux :** d'après la fiche de Maha, 885 sur 885 incendies d'Occitanie en 2024-2025 ont `Code_INSEE` et `Date_de_premiere_alerte`, dont 5 dans le 31. Mais 37 % des feux d'Occitanie partent hors saison de la Météo des forêts : sans niveau, ils sortent du calcul. **Part utilisable de la formule complète :** non vérifiée, le croisement n'est pas fait. |
+| 7. Proxy et biais | **« Jour à indice bas » → jour dont le niveau prévu la veille est inférieur à N.** Le niveau est une prévision à J+1, pas un danger observé : le taux juge la prévision, le sens du biais n'est pas établi. **« Départ de feu » → incendie recensé dans la BDIFF, daté par la première alerte.** Un feu qui dure plusieurs jours n'a qu'un jour, donc la date retenue change le taux. 9 départs de feu sur 10 sont d'origine humaine (PDF de la Météo des forêts) : un feu humain un jour d'indice bas n'est pas une erreur de l'indice, le taux **surestime** alors ses défauts. |
+| 8. Décision éclairée | **Taux élevé** (au moins [b %]) : des feux échappent au dispositif. Le SDIS abaisse N pour déclencher plus souvent. **Taux faible :** N reste ou est relevé, à condition de vérifier le nombre de jours déclenchés (second indicateur) par rapport au budget. **Sous le seuil plancher :** le taux du 31 n'est pas lu, on lit celui de l'Occitanie. |
+| 9. Propriétaire | **Porte l'indicateur :** Samy Bouaouni. **Calcule :** Samy Bouaouni (pipeline). **Relit :** Hocine Ait Yakoub (qualité). Répartition reprise de la fiche de Maha, à valider en groupe. |
+
+**Faisabilité.** Pour l'indice : faisable, vérifié dans les 3 fichiers. Pour les feux : le champ existe dans la BDIFF d'après la fiche du groupe, mais je n'ai pas fait le croisement. Avec 5 feux dans le 31 en 2024-2025, le taux du 31 est sous le plancher : seule la lecture à l'échelle de l'Occitanie est possible.
+
+**Changement de paramètre.** Calcul sur la Haute-Garonne, avec `niveau_j1` : jours déclenchés, c'est-à-dire d'indice supérieur ou égal à N.
+
+| N | 2024 (sur 120 jours) | 2025 (sur 120 jours) | 2026 (sur 131 jours) |
+|---|---|---|---|
+| 2 | 16 | 51 | 105 |
+| 3 | 1 | 10 | 35 |
+| 4 | 0 | 0 | 4 |
+
+- **Ce qui change** quand on passe de N = 3 à N = 2 :
+  - les « jours à indice bas » ne sont plus que les jours de niveau 1, donc le numérateur diminue et le taux baisse ou reste ;
+  - la décision « abaisser N » devient moins probable ;
+  - les jours déclenchés passent de 10 à 51 en 2025 et de 35 à 105 en 2026 ;
+  - la cible [b %] doit être fixée à nouveau.
+- **Ce qui ne change pas :**
+  - le dénominateur (tous les feux de la période), la source, le grain et la définition d'un feu.
+- N doit donc être fixé **avant** la saison, pas choisi après coup.
+
+**RACER (une phrase par critère) :**
+- **Relevant :** il mesure directement la part des feux qui échappent au dispositif, ce qui est la question D2.
+- **Accepted :** à confirmer avec la direction, qui doit valider N et la définition d'un feu, avec les définitions du glossaire (« départ de feu »).
+- **Credible :** oui si N, l'horizon et la date retenue sont écrits avant la saison. Mais avec 5 feux dans le 31 en 2 ans, deux lecteurs peuvent conclure différemment : d'où le seuil plancher.
+- **Easy :** l'indice se lit facilement (3 fichiers à unifier), mais la BDIFF n'est publiée qu'une fois par an. La valeur 2027 n'arrive qu'après la saison, sauf avec les interventions du SDIS 31.
+- **Robust :** fragile. On peut le faire baisser en abaissant N, et il varie beaucoup avec peu de feux (voir K4).
+
+**Détournement (K4) :**
+- **Par qui :** celui qui fixe N et qui est jugé sur le taux (l'équipe d'analyse ou l'état-major du SDIS).
+- **Comment :** il abaisse N à 2, après coup, pour qu'aucun feu ne tombe sous N.
+- **Effet :** le taux tombe vers 0, alors que le dispositif tourne presque tout le temps (105 jours sur 131 en 2026 pour N = 2 en Haute-Garonne).
+
+**Garde-fous :**
+- **Règle fixée à l'avance :** N, l'horizon, la date retenue et la définition d'un feu sont versionnés dans le dépôt avant le début de la saison et ne sont plus modifiés.
+- **Contrepoids :** le nombre de jours déclenchés par saison (second indicateur) est comparé au budget [à demander].
+- **Volume :** le nombre de départs de feu de la saison est affiché à côté du taux.
+- **Seuil plancher :** sous [10, à valider] départs de feu dans la saison, le taux du 31 n'est pas lu ; on lit celui de l'Occitanie (règle du groupe, fiche de Maha).
+- Seul le contrepoids mesure autre chose que l'indicateur (la charge du dispositif) ; le volume et le seuil plancher disent seulement si le taux est lisible.
+
+**Risque résiduel :**
+- **Un jour déclenché sans feu n'est pas forcément une fausse alerte :** le dispositif a pu fonctionner.
+- **Le taux et ses garde-fous jugent la prévision de l'indice, pas l'efficacité du dispositif.** Les 37 % de feux hors saison de la Météo des forêts (Occitanie, fiche de Maha) restent invisibles.
+
+**Second indicateur (garde-fou) : nombre de jours déclenchés par saison.**
+- **Formule :** nombre de jours dont `niveau_j1` est supérieur ou égal à N, en Haute-Garonne, par saison (et par mois pour le suivi). Unité : jours.
+- **Rôle :** contrepoids. Il se dégrade si N est abaissé pour améliorer le taux, et il mesure la charge du dispositif, pas les feux.
+- **Horizon :** les comptes diffèrent selon l'horizon (en 2026 pour N = 3 : 35 jours avec `niveau_j1`, 23 avec `niveau_j2`), donc il est fixé à l'avance.
+- **Seuil d'alerte :** le nombre de jours renforçables par été [à demander à la direction]. Au-delà : relever N ou cibler.
+- **Valeur indicative en Occitanie** (13 départements, départements-jours de niveau supérieur ou égal à N) :
+
+| N | 2024 (sur 1 560) | 2025 (sur 1 560) | 2026 (sur 1 703) |
+|---|---|---|---|
+| 2 | 403 | 651 | 1 202 |
+| 3 | 77 | 177 | 518 |
+| 4 | 1 | 7 | 48 |
+
+- **Lecture :** en 2026 pour N = 3, la Haute-Garonne (35 jours) est proche de la moyenne des 13 départements (518 ÷ 13 = 40), l'Aude est loin devant (107).
+- **Lignes utilisables :** 371 sur 371 en Haute-Garonne, 4 823 sur 4 823 pour les 13 départements d'Occitanie.
+- **Proxy :** aucun, tous les termes ont un champ.
+
+**Pre-mortem.** Dans un an, l'indicateur a échoué : le SDIS a pris une mauvaise décision à cause de lui.
+
+| Rang | Raison d'échec | Probabilité | Gravité | Garde-fou |
+|---|---|---|---|---|
+| 1 | Trop peu de feux dans le 31 et 3 saisons seulement : le taux vaut 0 % ou 100 % par hasard, et N est fixé sur du bruit. Les saisons diffèrent beaucoup (1 jour de niveau 3 ou plus en 2024, 10 en 2025, 35 en 2026). | élevée (5 feux en 2 ans dans le 31, fiche de Maha) | élevée | Seuil plancher, volume affiché à côté du taux, lecture à l'échelle de l'Occitanie |
+| 2 | N abaissé au minimum pour améliorer le taux : le dispositif est déclenché presque tout le temps (N = 2 : 105 jours sur 131 en 2026) et le budget est dépassé. | moyenne | élevée | Le second indicateur : jours déclenchés comparés au budget [à demander] |
+| 3 | Jours mal alignés : le niveau du jour D est lu dans la mauvaise émission, ou les 3 fichiers sont lus différemment (séparateur, code `1` au lieu de `01`, `dep_nom` et `nom_dep`). Un feu est rattaché au mauvais jour ou département. | moyenne | moyenne | (pas exigé) Contrôle par échantillon et test de 96 lignes par jour, sans jour manquant (vérifié sur les 3 fichiers) |
+
+**Rôle de chaque indicateur :**
+
+| Indicateur | Rôle | Raison |
+|---|---|---|
+| Taux de feux déclenchés sur des jours à indice bas | KPI principal | Répond à D2 : à partir de quel niveau déclencher. Lisible seulement à l'échelle de l'Occitanie. |
+| Part des jours déclenchés sans départ de feu | KPI secondaire | Explique et prépare le principal : dit combien de jours déclenchés l'ont été pour rien. Demande le croisement avec la BDIFF. |
+| Nombre de jours déclenchés par saison | Garde-fou | Contrepoids : se dégrade si N est abaissé pour améliorer le taux. Calculable avec l'archive seule. |
+| Nombre de départs de feu de la saison | Garde-fou | Volume et seuil plancher : sous [10, à valider] feux, le taux du 31 n'est pas lu. |
+| Moment de la saison (mois) | Contexte | Explique sans guider l'action : en 2025, 9 des 10 jours de niveau 3 ou plus du 31 sont en août. On le note, on ne le pilote pas. |
+| Corrélation entre feux et température | Écarté | Si elle double, personne ne fait rien de différent : l'indice contient déjà la température, l'humidité, le vent et les précipitations (PDF de la Météo des forêts). |
+| Niveau moyen de l'indice par saison | Écarté | Si la valeur double, personne ne fait rien de différent : la décision porte sur un seuil N, et une moyenne cache les jours de pointe (4 jours de niveau 4 en 2026 dans le 31). |
+
 
 ## Soukaina Goumih
 
